@@ -10,7 +10,7 @@
 
   <nav class="fixed top-0 inset-x-0 p-6 bg-white dark:bg-gray-800 shadow z-10">
     <div class="container mx-auto flex items-center justify-between">
-      <div class="text-xl font-bold">Ahmed Jawad Tahmid</div>
+      <div class="text-xl font-bold text-gray-900 dark:text-white">Ahmed Jawad Tahmid</div>
       <ul class="flex space-x-6">
         <li><a href="#home" class="hover:underline">Home</a></li>
         <li><a href="#about" class="hover:underline">About</a></li>
@@ -19,14 +19,16 @@
         <li><a href="#experience" class="hover:underline">Experience</a></li>
         <li><a href="#contact" class="hover:underline">Contact</a></li>
       </ul>
-      <button id="theme-toggle" class="p-2 border rounded">Dark Mode</button>
+      <button id="theme-toggle" class="p-2 px-4 border rounded transition-colors duration-300 bg-white text-gray-800 dark:bg-gray-800 dark:text-white">
+        Dark Mode
+      </button>
     </div>
   </nav>
 
   <main class="mt-24 space-y-20 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
 
     <section id="home" class="p-6">
-      <h1 class="text-4xl font-bold mb-4 text-center">Hey, I'm Jawad 👋</h1>
+      <h1 class="text-4xl font-bold mb-4 text-center">Hey, I'm Jawad</h1>
       <p class="text-center text-lg">A Computer Science student passionate about building clean, useful, and fun digital experiences. Welcome to my portfolio.</p>
     </section>
 
@@ -57,9 +59,9 @@
 
   </main>
 
-  <footer class="p-6 text-center mt-10 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300">
+  <footer class="p-6 text-center mt-10 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-white">
     <p class="mb-2">Made by Ahmed Jawad Tahmid</p>
-    <p>Flag Counter: <span>[Your flag widget goes here]</span></p>
+    <p>Flag Counter: <span></span></p>
   </footer>
 
   <script src="js/main.js"></script>
