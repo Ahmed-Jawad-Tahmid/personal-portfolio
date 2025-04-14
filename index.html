@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name - Portfolio</title>
+  <!-- Link to the compiled Tailwind CSS -->
+  <link href="dist/output.css" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 inset-x-0 p-6 bg-white dark:bg-gray-800 shadow z-10">
+    <div class="container mx-auto flex items-center justify-between">
+      <div class="text-xl font-bold">
+        Your Name
+      </div>
+      <ul class="flex space-x-6">
+        <li><a href="#home" class="hover:underline">Home</a></li>
+        <li><a href="#about" class="hover:underline">About Me</a></li>
+        <li><a href="#skills" class="hover:underline">My Skills</a></li>
+        <li><a href="#projects" class="hover:underline">My Projects</a></li>
+        <li><a href="#experience" class="hover:underline">My Experience</a></li>
+        <li><a href="#contact" class="hover:underline">Contact Me</a></li>
+      </ul>
+      <button id="theme-toggle" class="p-2 border rounded">
+        Dark Mode
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Sections -->
+  <main class="mt-20">
+    <section id="home" class="p-6">
+      <h1 class="text-4xl font-bold">Welcome to My Portfolio</h1>
+      <p class="mt-4">Your introductory text goes here...</p>
+    </section>
+
+    <section id="about" class="p-6">
+      <h2 class="text-3xl font-bold">About Me</h2>
+      <p class="mt-4">Some information about yourself...</p>
+    </section>
+
+    <section id="skills" class="p-6">
+      <h2 class="text-3xl font-bold">My Skills</h2>
+      <p class="mt-4">Details about your skills...</p>
+    </section>
+
+    <section id="projects" class="p-6">
+      <h2 class="text-3xl font-bold">My Projects</h2>
+      <p class="mt-4">Details about your projects...</p>
+    </section>
+
+    <section id="experience" class="p-6">
+      <h2 class="text-3xl font-bold">My Experience</h2>
+      <p class="mt-4">Timeline or tree of your professional journey...</p>
+    </section>
+
+    <section id="contact" class="p-6">
+      <h2 class="text-3xl font-bold">Contact Me</h2>
+      <p class="mt-4">Contact details or contact form...</p>
+    </section>
+  </main>
+
+  <!-- Footer with Flag Counter -->
+  <footer class="p-6 text-center">
+    <p>Flag Counter: <span>Country flags here</span></p>
+  </footer>
+
+  <!-- JavaScript file -->
+  <script src="js/main.js"></script>
+</body>
+</html>
