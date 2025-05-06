@@ -1,0 +1,37 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vh 1vw;
+    background-color: transparent;
+    color: cyan;
+    font-family: "Nanum Gothic Coding", monospace;
+    font-size: 2.5vh;
+    font-style: normal;
+    position: sticky;
+    top: 0;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li{
+    margin-right: 3vw;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: aquamarine;
+    display: inline-block;
+    transition: color 0.5s ease, transform 0.5s ease;
+    font-weight: bolder;
+}
+
+.nav-links a:hover {
+    cursor: pointer;
+    color: aqua;
+    transform: scale(1.2);
+}
