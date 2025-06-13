@@ -2,58 +2,74 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import {
-  DiHtml5,
-  DiCss3,
   DiJavascript1,
   DiReact,
   DiNodejs,
   DiMongodb,
   DiPostgresql,
   DiGit,
-  DiDocker,
   DiVisualstudio,
+  DiCss3,
+  DiHtml5,
+  DiJava,
+  DiPython,
 } from "react-icons/di";
 
 import {
   SiTailwindcss,
   SiNextdotjs,
   SiExpress,
-  SiTypescript,
-  SiGraphql,
-  SiFigma,
+  SiMysql,
+  SiC,
+  SiNpm,
   SiGithub,
+  SiAngular,
+  SiTypescript,
 } from "react-icons/si";
 
 const skills = [
+  // Languages
+  { name: "Python", icon: <DiPython />, category: "languages" },
+  { name: "Java", icon: <DiJava />, category: "languages" },
+  { name: "C", icon: <SiC />, category: "languages" },
+  { name: "JavaScript", icon: <DiJavascript1 />, category: "languages" },
+  { name: "TypeScript", icon: <SiTypescript />, category: "languages" },
+
   // Frontend
-  { name: "HTML/CSS", icon: <><DiHtml5 /> <DiCss3 /></>, category: "frontend" },
-  { name: "JavaScript", icon: <DiJavascript1 />, category: "frontend" },
-  { name: "React", icon: <DiReact />, category: "frontend" },
-  { name: "TypeScript", icon: <SiTypescript />, category: "frontend" },
+  { name: "HTML", icon: <DiHtml5 />, category: "frontend" },
+  { name: "CSS", icon: <DiCss3 />, category: "frontend" },
   { name: "Tailwind CSS", icon: <SiTailwindcss />, category: "frontend" },
-  { name: "Next.js", icon: <SiNextdotjs />, category: "frontend" },
+  { name: "React", icon: <DiReact />, category: "frontend" },
+  { name: "Angular", icon: <SiAngular />, category: "frontend" },
 
   // Backend
+  { name: "npm", icon: <SiNpm />, category: "backend" },
   { name: "Node.js", icon: <DiNodejs />, category: "backend" },
   { name: "Express", icon: <SiExpress />, category: "backend" },
-  { name: "MongoDB", icon: <DiMongodb />, category: "backend" },
-  { name: "PostgreSQL", icon: <DiPostgresql />, category: "backend" },
-  { name: "GraphQL", icon: <SiGraphql />, category: "backend" },
 
-  // Tools
-  { name: "Git/GitHub", icon: <><DiGit /> <SiGithub /></>, category: "tools" },
-  { name: "Docker", icon: <DiDocker />, category: "tools" },
-  { name: "Figma", icon: <SiFigma />, category: "tools" },
-  { name: "VS Code", icon: <DiVisualstudio />, category: "tools" },
+  // Databases
+  { name: "MySQL", icon: <SiMysql />, category: "databases" },
+  { name: "MongoDB", icon: <DiMongodb />, category: "databases" },
+  { name: "PostgreSQL", icon: <DiPostgresql />, category: "databases" },
+
+  // Version Control
+  { name: "Git", icon: <DiGit />, category: "version-control" },
+  { name: "GitHub", icon: <SiGithub />, category: "version-control" },
 ];
 
-const categories = ["all", "frontend", "backend", "tools"];
+const categories = [
+  "languages",
+  "frontend",
+  "backend",
+  "databases",
+  "version-control",
+];
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("languages");
 
   const filteredSkills = skills.filter(
-    (skill) => activeCategory === "all" || skill.category === activeCategory
+    (skill) => skill.category === activeCategory
   );
 
   return (
@@ -75,7 +91,7 @@ export const SkillsSection = () => {
                   : "bg-secondary/70 text-foreground hover:bg-secondary"
               )}
             >
-              {category}
+              {category.replace("-", " ")}
             </button>
           ))}
         </div>
@@ -86,7 +102,8 @@ export const SkillsSection = () => {
               key={key}
               className="bg-card p-6 rounded-lg shadow-xs card-hover flex items-center gap-4 hover:shadow-md transition"
             >
-              <div className="text-3xl text-primary">{skill.icon}</div>
+              {/* 👇 No text-primary here — so original icon color is preserved */}
+              <div className="text-3xl">{skill.icon}</div>
               <h3 className="font-semibold text-lg">{skill.name}</h3>
             </div>
           ))}
