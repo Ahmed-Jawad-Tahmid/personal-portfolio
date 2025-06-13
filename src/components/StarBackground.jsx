@@ -6,18 +6,22 @@ import { useEffect, useState } from "react";
 export const StarBackground = () => {
   const [stars, setStars] = useState([]);
   const [meteors, setMeteors] = useState([]);
+  const [clickMeteors, setClickMeteors] = useState([]); 
 
   useEffect(() => {
     generateStars();
     generateMeteors();
 
-    const handleResize = () => {
-      generateStars();
-    };
+    const handleResize = () => generateStars();
+    const handleClick = () => spawnClickMeteor(); 
 
     window.addEventListener("resize", handleResize);
+    window.addEventListener("click", handleClick); 
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("click", handleClick); 
+    };
   }, []);
 
   const generateStars = () => {
@@ -59,6 +63,24 @@ export const StarBackground = () => {
     setMeteors(newMeteors);
   };
 
+  // 🔥 NEW — generate meteor on user click
+  const spawnClickMeteor = () => {
+    const id = Date.now();
+    const newMeteor = {
+      id,
+      size: Math.random() * 3 + 1.5,
+      x: Math.random() * 100,
+      y: Math.random() * 80, // more variety
+      animationDuration: Math.random() * 2 + 3,
+    };
+
+    setClickMeteors((prev) => [...prev, newMeteor]);
+
+    setTimeout(() => {
+      setClickMeteors((prev) => prev.filter((m) => m.id !== id));
+    }, newMeteor.animationDuration * 1000);
+  };
+
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {stars.map((star) => (
@@ -85,7 +107,21 @@ export const StarBackground = () => {
             height: meteor.size * 2 + "px",
             left: meteor.x + "%",
             top: meteor.y + "%",
-            animationDelay: meteor.delay,
+            animationDelay: meteor.delay + "s",
+            animationDuration: meteor.animationDuration + "s",
+          }}
+        />
+      ))}
+
+      {clickMeteors.map((meteor) => (
+        <div
+          key={meteor.id}
+          className="meteor animate-meteor"
+          style={{
+            width: meteor.size * 40 + "px",
+            height: meteor.size * 2 + "px",
+            left: meteor.x + "%",
+            top: meteor.y + "%",
             animationDuration: meteor.animationDuration + "s",
           }}
         />
