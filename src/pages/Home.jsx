@@ -6,6 +6,7 @@ import { AboutSection } from "../components/AboutSection.jsx"
 import { SkillsSection } from "../components/SkillsSection.jsx"
 import { ProjectsSection } from "../components/ProjectsSection.jsx"
 import { ContactSection } from "../components/ContactSection.jsx"
+import { Footer } from "../components/Footer.jsx"
 
 export const Home = () => {
     return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -25,5 +26,7 @@ export const Home = () => {
 
         </main>
         {/* Footer */}
+        <Footer />
+        
     </div>
 }
