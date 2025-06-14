@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
 
-// id, size, x, y, opacity, animationDuration
-// id, size, x, y, delay, animationDuration
-
 export const StarBackground = () => {
   const [stars, setStars] = useState([]);
   const [meteors, setMeteors] = useState([]);
-  const [clickMeteors, setClickMeteors] = useState([]); 
+  const [clickMeteors, setClickMeteors] = useState([]);
 
   useEffect(() => {
     generateStars();
     generateMeteors();
 
     const handleResize = () => generateStars();
-    const handleClick = () => spawnClickMeteor(); 
+    const handleClick = () => spawnClickMeteor();
 
     window.addEventListener("resize", handleResize);
-    window.addEventListener("click", handleClick); 
+    window.addEventListener("click", handleClick);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("click", handleClick); 
+      window.removeEventListener("click", handleClick);
     };
   }, []);
 
@@ -63,14 +60,13 @@ export const StarBackground = () => {
     setMeteors(newMeteors);
   };
 
-  // 🔥 NEW — generate meteor on user click
   const spawnClickMeteor = () => {
     const id = Date.now();
     const newMeteor = {
       id,
       size: Math.random() * 3 + 1.5,
       x: Math.random() * 100,
-      y: Math.random() * 80, // more variety
+      y: Math.random() * 80,
       animationDuration: Math.random() * 2 + 3,
     };
 
@@ -88,12 +84,12 @@ export const StarBackground = () => {
           key={star.id}
           className="star animate-pulse-subtle"
           style={{
-            width: star.size + "px",
-            height: star.size + "px",
-            left: star.x + "%",
-            top: star.y + "%",
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            left: `${star.x}%`,
+            top: `${star.y}%`,
             opacity: star.opacity,
-            animationDuration: star.animationDuration + "s",
+            animationDuration: `${star.animationDuration}s`,
           }}
         />
       ))}
@@ -103,12 +99,17 @@ export const StarBackground = () => {
           key={meteor.id}
           className="meteor animate-meteor"
           style={{
-            width: meteor.size * 50 + "px",
-            height: meteor.size * 2 + "px",
-            left: meteor.x + "%",
-            top: meteor.y + "%",
-            animationDelay: meteor.delay + "s",
-            animationDuration: meteor.animationDuration + "s",
+            width: `${meteor.size * 50}px`,
+            height: `${meteor.size * 2}px`,
+            left: `${meteor.x}%`,
+            top: `${meteor.y}%`,
+            animationDelay: `${meteor.delay}s`,
+            animationDuration: `${meteor.animationDuration}s`,
+            visibility: "hidden",
+            animationFillMode: "forwards",
+          }}
+          onAnimationStart={(e) => {
+            e.currentTarget.style.visibility = "visible";
           }}
         />
       ))}
@@ -118,11 +119,16 @@ export const StarBackground = () => {
           key={meteor.id}
           className="meteor animate-meteor"
           style={{
-            width: meteor.size * 40 + "px",
-            height: meteor.size * 2 + "px",
-            left: meteor.x + "%",
-            top: meteor.y + "%",
-            animationDuration: meteor.animationDuration + "s",
+            width: `${meteor.size * 40}px`,
+            height: `${meteor.size * 2}px`,
+            left: `${meteor.x}%`,
+            top: `${meteor.y}%`,
+            animationDuration: `${meteor.animationDuration}s`,
+            visibility: "hidden",
+            animationFillMode: "forwards",
+          }}
+          onAnimationStart={(e) => {
+            e.currentTarget.style.visibility = "visible";
           }}
         />
       ))}
