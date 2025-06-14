@@ -25,36 +25,52 @@ import {
   SiGithub,
   SiAngular,
   SiTypescript,
+  SiTensorflow,
+  SiKeras,
+  SiNumpy,
+  SiPandas,
+  SiPlotly,
+  SiScikitlearn,
+  SiPytorch,
 } from "react-icons/si";
 
 const skills = [
   // Languages
-  { name: "Python", icon: <DiPython />, category: "languages" },
-  { name: "Java", icon: <DiJava />, category: "languages" },
-  { name: "C", icon: <SiC />, category: "languages" },
-  { name: "JavaScript", icon: <DiJavascript1 />, category: "languages" },
-  { name: "TypeScript", icon: <SiTypescript />, category: "languages" },
+  { name: "Python", icon: <DiPython size={40} />, category: "languages" },
+  { name: "Java", icon: <DiJava size={40} />, category: "languages" },
+  { name: "C", icon: <SiC size={40} />, category: "languages" },
+  { name: "JavaScript", icon: <DiJavascript1 size={40} />, category: "languages" },
+  { name: "TypeScript", icon: <SiTypescript size={40} />, category: "languages" },
 
   // Frontend
-  { name: "HTML", icon: <DiHtml5 />, category: "frontend" },
-  { name: "CSS", icon: <DiCss3 />, category: "frontend" },
-  { name: "Tailwind CSS", icon: <SiTailwindcss />, category: "frontend" },
-  { name: "React", icon: <DiReact />, category: "frontend" },
-  { name: "Angular", icon: <SiAngular />, category: "frontend" },
+  { name: "HTML", icon: <DiHtml5 size={40} />, category: "frontend" },
+  { name: "CSS", icon: <DiCss3 size={40} />, category: "frontend" },
+  { name: "Tailwind CSS", icon: <SiTailwindcss size={40} />, category: "frontend" },
+  { name: "React", icon: <DiReact size={40} />, category: "frontend" },
+  { name: "Angular", icon: <SiAngular size={40} />, category: "frontend" },
 
   // Backend
-  { name: "npm", icon: <SiNpm />, category: "backend" },
-  { name: "Node.js", icon: <DiNodejs />, category: "backend" },
-  { name: "Express", icon: <SiExpress />, category: "backend" },
+  { name: "npm", icon: <SiNpm size={40} />, category: "backend" },
+  { name: "Node.js", icon: <DiNodejs size={40} />, category: "backend" },
+  { name: "Express", icon: <SiExpress size={40} />, category: "backend" },
 
   // Databases
-  { name: "MySQL", icon: <SiMysql />, category: "databases" },
-  { name: "MongoDB", icon: <DiMongodb />, category: "databases" },
-  { name: "PostgreSQL", icon: <DiPostgresql />, category: "databases" },
+  { name: "MySQL", icon: <SiMysql size={40} />, category: "databases" },
+  { name: "MongoDB", icon: <DiMongodb size={40} />, category: "databases" },
+  { name: "PostgreSQL", icon: <DiPostgresql size={40} />, category: "databases" },
 
   // Version Control
-  { name: "Git", icon: <DiGit />, category: "version-control" },
-  { name: "GitHub", icon: <SiGithub />, category: "version-control" },
+  { name: "Git", icon: <DiGit size={40} />, category: "version-control" },
+  { name: "GitHub", icon: <SiGithub size={40} />, category: "version-control" },
+
+  // Machine Learning
+  { name: "TensorFlow", icon: <SiTensorflow size={40} />, category: "machine-learning" },
+  { name: "Keras", icon: <SiKeras size={40} />, category: "machine-learning" },
+  { name: "PyTorch", icon: <SiPytorch size={40} />, category: "machine-learning" },
+  { name: "Scikit-learn", icon: <SiScikitlearn size={40} />, category: "machine-learning" },
+  { name: "NumPy", icon: <SiNumpy size={40} />, category: "machine-learning" },
+  { name: "Pandas", icon: <SiPandas size={40} />, category: "machine-learning" },
+  { name: "Matplotlib", icon: <SiPlotly size={40} />, category: "machine-learning" }, // visual stand-in
 ];
 
 const categories = [
@@ -63,6 +79,7 @@ const categories = [
   "backend",
   "databases",
   "version-control",
+  "machine-learning",
 ];
 
 export const SkillsSection = () => {
@@ -102,8 +119,7 @@ export const SkillsSection = () => {
               key={key}
               className="bg-card p-6 rounded-lg shadow-xs card-hover flex items-center gap-4 hover:shadow-md transition"
             >
-              {/* 👇 No text-primary here — so original icon color is preserved */}
-              <div className="text-3xl">{skill.icon}</div>
+              <div>{skill.icon}</div>
               <h3 className="font-semibold text-lg">{skill.name}</h3>
             </div>
           ))}
