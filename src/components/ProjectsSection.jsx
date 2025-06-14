@@ -1,11 +1,11 @@
-import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 const projects = [
   {
     id: 1,
     title: "VistaShare – Location Sharing App",
     description: "A platform for explorers to share locations and explore city guides. Designed with travelers in mind using MERN stack",
-    image: "/projects/project1.png",
+    image: "/projects/project1.jpeg",
     tags: ["React", "MySQL", "Node.js", "Leaflet.js", "Express.js"],
     demoUrl: "https://github.com/Ahmed-Jawad-Tahmid/VistaShare",
   },
@@ -14,7 +14,7 @@ const projects = [
     title: "Apollo – Wildlife Tracker",
     description:
       "A GPS-powered wildlife conservation app that lets users 'adopt' real animals. Includes live tracking, AI-generated summaries and a donation model to boost wildlife conservation",
-    image: "/projects/project2.png",
+    image: "/projects/project2.jpeg",
     tags: ["MongoDB", "Angular", "Node.js", "YOLOv8", "Google Maps API"],
     demoUrl: "https://github.com/arjitchitkara/CALGARYHACKS",
   },
@@ -23,8 +23,8 @@ const projects = [
     title: "Offline Group Chat",
     description:
       "A WebSocket-based real-time chat app that works without internet",
-    image: "/projects/project3.png",
-    tags: ["WebSocket", "Node.js", "HTML", "CSS", "Offline"],
+    image: "/projects/project3.jpeg",
+    tags: ["WebSocket", "Offline", "HTML", "CSS", "Javascript"],
     demoUrl: "https://github.com/Ahmed-Jawad-Tahmid/Offline-Group-Chat",
   },
 ];
