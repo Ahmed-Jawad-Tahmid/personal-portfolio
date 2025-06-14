@@ -132,6 +132,8 @@ export const ContactSection = () => {
                   id="name"
                   name="name"
                   required
+                  pattern="^[A-Za-z\s]{2,}$"
+                  title="Name must be at least 2 letters and contain only letters or spaces"
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="Jon Snow..."
                 />
@@ -149,6 +151,8 @@ export const ContactSection = () => {
                   id="email"
                   name="email"
                   required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                  title="Enter a valid email address"
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="jonsnow@youknownothing.io"
                 />
@@ -165,6 +169,7 @@ export const ContactSection = () => {
                   id="message"
                   name="message"
                   required
+                  maxLength={1000}
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                   placeholder="Tell Cersei. I want her to know..."
                 />
