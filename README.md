@@ -2,7 +2,7 @@
 
 This repository contains the source code for my personal portfolio website. 
 
-Live Website: [https://your-deployed-url.com](https://your-deployed-url.com)
+Live Website: https://www.ahmedjt.com/
 
 ## Features
 
