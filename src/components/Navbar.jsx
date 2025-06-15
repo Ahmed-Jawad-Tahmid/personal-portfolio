@@ -29,12 +29,16 @@ export const Navbar = () => {
       )}
     >
       <div className="container flex items-center justify-between">
+        {/* Logo Title */}
         <a
-          className="text-xl font-bold text-primary flex items-center"
           href="#hero"
+          className="text-xl font-bold flex items-center tracking-tight group"
         >
-          <span className="relative z-10">
-            <span className="text-glow text-foreground"> AJT's </span> Portfolio
+          <span className="transition-all duration-500 group-hover:text-primary group-hover:text-glow group-hover-wiggle inline-block">
+            AJT&apos;s
+          </span>
+          <span className="ml-1 text-primary transition-all duration-500 group-hover:text-glow group-hover-wiggle inline-block">
+            Portfolio
           </span>
         </a>
 
@@ -82,8 +86,6 @@ export const Navbar = () => {
                 {item.name}
               </a>
             ))}
-
-            {/* Dark Mode Toggle (Mobile Only) */}
             <div className="flex justify-center pt-4">
               <ThemeToggle />
             </div>
