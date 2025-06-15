@@ -4,20 +4,30 @@ export const StarBackground = () => {
   const [stars, setStars] = useState([]);
   const [meteors, setMeteors] = useState([]);
   const [clickMeteors, setClickMeteors] = useState([]);
+  const [showHint, setShowHint] = useState(true);
 
   useEffect(() => {
     generateStars();
     generateMeteors();
 
     const handleResize = () => generateStars();
-    const handleClick = () => spawnClickMeteor();
+    const handleClick = () => {
+      spawnClickMeteor();
+      setShowHint(false); // Hide hint after interaction
+    };
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("click", handleClick);
+    window.addEventListener("touchstart", handleClick);
+
+    // Auto-hide after 7 seconds
+    const timer = setTimeout(() => setShowHint(false), 7000);
 
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("click", handleClick);
+      window.removeEventListener("touchstart", handleClick);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -132,6 +142,12 @@ export const StarBackground = () => {
           }}
         />
       ))}
+
+      {showHint && (
+        <div className="fixed top-20 right-5 px-4 py-2 text-sm text-foreground/80 bg-background/70 backdrop-blur-sm rounded-md shadow-md animate-fade-in z-10">
+          Psst... tap anywhere to make a wish ✨
+        </div>
+      )}
     </div>
   );
 };
