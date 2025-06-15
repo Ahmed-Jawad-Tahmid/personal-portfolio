@@ -154,7 +154,7 @@ export const ContactSection = () => {
                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                   title="Enter a valid email address"
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="jonsnow@youknownothing.io"
+                  placeholder="jonsnow@thewall.com"
                 />
               </div>
 
