@@ -87,29 +87,33 @@ export const ContactSection = () => {
               </div>
             </div>
 
-            <div className="pt-8">
+            {/* Connect With Me Heading + Centered Icons */}
+            <div className="pt-12 text-center">
               <h4 className="font-medium mb-4">Connect With Me</h4>
-              <div className="flex space-x-4">
+              <div className="flex justify-center space-x-6">
                 <a
                   href="https://www.linkedin.com/in/ahmed-jawad-tahmid"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn"
                 >
-                  <Linkedin />
+                  <Linkedin className="h-6 w-6 hover:text-primary transition-colors" />
                 </a>
                 <a
                   href="https://www.instagram.com/ahm_jawadx/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Instagram"
                 >
-                  <Instagram />
+                  <Instagram className="h-6 w-6 hover:text-primary transition-colors" />
                 </a>
                 <a
                   href="https://github.com/Ahmed-Jawad-Tahmid"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="GitHub"
                 >
-                  <Github />
+                  <Github className="h-6 w-6 hover:text-primary transition-colors" />
                 </a>
               </div>
             </div>
