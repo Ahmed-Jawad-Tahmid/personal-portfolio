@@ -8,24 +8,22 @@ export const AboutSection = () => {
     <section id="about" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          About <span className="text-primary"> Me</span>
+          About <span className="text-primary">Me</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">
-              Passionate Software Developer 
+              Passionate Software Developer
             </h3>
 
             <p className="text-muted-foreground">
-              I'm a Developer who Loves Building Cool Stuff that actually does something useful. 
+              I'm a Developer who Loves Building Cool Stuff that actually does something useful.
             </p>
 
             <p className="text-muted-foreground">
               Always pushing myself to experiment and learn new things.
-              Whether it’s backend logic or frontend polish, 
-              I enjoy the process of creating something from 
-              scratch and making it work well.
+              Whether it’s backend logic or frontend polish, I enjoy the process of creating something from scratch and making it work well.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
@@ -50,7 +48,7 @@ export const AboutSection = () => {
                   <Code className="h-6 w-6 text-primary" />
                 </div>
                 <div className="text-left">
-                  <h4 className="font-semibold text-lg"> Web Development</h4>
+                  <h4 className="font-semibold text-lg">Web Development</h4>
                   <p className="text-muted-foreground">
                     Creating responsive websites and web applications with modern frameworks.
                   </p>
@@ -90,25 +88,26 @@ export const AboutSection = () => {
           </div>
         </div>
 
-        {/* Lightly sarcastic modal */}
+        {/* Resume Modal */}
         {showModal && (
           <div
-            className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center"
             onClick={() => setShowModal(false)}
           >
             <div
-              className="bg-white max-w-md p-6 rounded-2xl shadow-xl text-center"
+              className="bg-background text-foreground max-w-md p-6 rounded-2xl shadow-xl text-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-lg font-semibold mb-2 text-black">
+              <h3 className="text-lg font-semibold mb-2">
                 Looking for my <span className="text-primary">Resume</span>?
               </h3>
-              <p className="text-gray-700 mb-4">
-                If you're an employer, recruiter, or someone looking to collaborate — then shoot me an email and I’ll happily share it!<br /><br />
+              <p className="text-muted-foreground mb-4">
+                If you're an employer, recruiter, or someone looking to collaborate then feel free to shoot me an email and I’ll happily share it!
+                <br /><br />
                 I like to keep my resume off the public web.<br />
                 <span className="italic">Mystery = charm, right?</span>
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 <a href="mailto:ahmedjawadtahmid@gmail.com" className="underline text-primary">
                   ahmedjawadtahmid@gmail.com
                 </a>
