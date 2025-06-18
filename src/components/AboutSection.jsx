@@ -109,13 +109,13 @@ export const AboutSection = () => {
                 <span className="italic">Mystery = charm, right?</span>
               </p>
               <p className="text-sm text-gray-500">
-                <a href="mailto:ahmedjt.intern@gmail.com" className="underline text-primary">
-                  ahmedjt.intern@gmail.com
+                <a href="mailto:ahmedjawadtahmid@gmail.com" className="underline text-primary">
+                  ahmedjawadtahmid@gmail.com
                 </a>
               </p>
               <button
                 onClick={() => setShowModal(false)}
-                className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full"
+                className="mt-4 px-4 py-2 bg-primary text-white hover:bg-primary/90 rounded-full transition-colors"
               >
                 Got it
               </button>
