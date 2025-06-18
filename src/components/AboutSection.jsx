@@ -100,18 +100,16 @@ export const AboutSection = () => {
               className="bg-white max-w-md p-6 rounded-2xl shadow-xl text-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-lg font-semibold mb-2">📠 Resume Delivery</h3>
+              <h3 className="text-lg font-semibold mb-2"> Looking for my resume?</h3>
               <p className="text-gray-700 mb-4">
-                Your resume request is being processed... via fax.
-                <br />
-                Please wait by your machine. Estimated delivery: <em>3–5 business decades.</em>
+                If you're an employer, recruiter, or someone looking to collaborate — then shoot me an email and I’ll happily share it!<br /><br />
+                I like to keep my resume off the public web.<br />
+                <span className="italic">Mystery = charm, right?</span>
               </p>
               <p className="text-sm text-gray-500">
-                Or just{" "}
                 <a href="mailto:you@example.com" className="underline text-primary">
-                  email me
-                </a>{" "}
-                like it’s the 21st century.
+                  ahmedjt.intern@gmail.com
+                </a>
               </p>
               <button
                 onClick={() => setShowModal(false)}
