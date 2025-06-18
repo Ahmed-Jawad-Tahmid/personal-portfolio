@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { FaDiscord } from "react-icons/fa";
+
 
 export const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,12 +115,20 @@ export const ContactSection = () => {
                   rel="noopener noreferrer"
                   aria-label="GitHub"
                 >
+                  
                   <Github className="h-6 w-6 hover:text-primary transition-colors" />
+                </a>
+                <a
+                  href="https://discord.com/users/386235881737945089"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Discord"
+                >
+                  <FaDiscord className="h-6 w-6 hover:text-primary transition-colors" />
                 </a>
               </div>
             </div>
           </div>
-
           {/* Contact Form */}
           <div className="bg-card p-8 rounded-lg shadow-xs">
             <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
