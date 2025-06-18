@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Globe, Code, Database } from "lucide-react";
 
 export const AboutSection = () => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <section id="about" className="py-24 px-4 relative">
-      {" "}
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           About <span className="text-primary"> Me</span>
@@ -16,8 +18,7 @@ export const AboutSection = () => {
             </h3>
 
             <p className="text-muted-foreground">
-                I'm a Developer who Loves Building Cool Stuff 
-                that actually does something useful. 
+              I'm a Developer who Loves Building Cool Stuff that actually does something useful. 
             </p>
 
             <p className="text-muted-foreground">
@@ -29,20 +30,20 @@ export const AboutSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
               <a href="#contact" className="cosmic-button">
-                {" "}
                 Get In Touch
               </a>
 
-              <a
-                href=""
+              <button
+                onClick={() => setShowModal(true)}
                 className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
               >
                 Download Resume
-              </a>
+              </button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-6">
+            {/* Web Dev */}
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
@@ -51,12 +52,13 @@ export const AboutSection = () => {
                 <div className="text-left">
                   <h4 className="font-semibold text-lg"> Web Development</h4>
                   <p className="text-muted-foreground">
-                    Creating responsive websites and web applications with
-                    modern frameworks.
+                    Creating responsive websites and web applications with modern frameworks.
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* DB */}
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
@@ -65,18 +67,18 @@ export const AboutSection = () => {
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Database Systems</h4>
                   <p className="text-muted-foreground">
-                    Experienced in designing and managing structured data
-                    using MongoDB and MySQL.
+                    Experienced in designing and managing structured data using MongoDB and MySQL.
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* Networking */}
             <div className="gradient-border p-6 card-hover">
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-full bg-primary/10">
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
-
                 <div className="text-left">
                   <h4 className="font-semibold text-lg">Networking Systems</h4>
                   <p className="text-muted-foreground">
@@ -87,6 +89,39 @@ export const AboutSection = () => {
             </div>
           </div>
         </div>
+
+        {/* Sarcastic Modal */}
+        {showModal && (
+          <div
+            className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center"
+            onClick={() => setShowModal(false)}
+          >
+            <div
+              className="bg-white max-w-md p-6 rounded-2xl shadow-xl text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-lg font-semibold mb-2">📠 Resume Delivery</h3>
+              <p className="text-gray-700 mb-4">
+                Your resume request is being processed... via fax.
+                <br />
+                Please wait by your machine. Estimated delivery: <em>3–5 business decades.</em>
+              </p>
+              <p className="text-sm text-gray-500">
+                Or just{" "}
+                <a href="mailto:you@example.com" className="underline text-primary">
+                  email me
+                </a>{" "}
+                like it’s the 21st century.
+              </p>
+              <button
+                onClick={() => setShowModal(false)}
+                className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
