@@ -90,7 +90,7 @@ export const AboutSection = () => {
           </div>
         </div>
 
-        {/* Sarcastic Modal */}
+        {/* Lightly sarcastic modal */}
         {showModal && (
           <div
             className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center"
@@ -100,14 +100,16 @@ export const AboutSection = () => {
               className="bg-white max-w-md p-6 rounded-2xl shadow-xl text-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-lg font-semibold mb-2"> Looking for my resume?</h3>
+              <h3 className="text-lg font-semibold mb-2 text-black">
+                Looking for my <span className="text-primary">Resume</span>?
+              </h3>
               <p className="text-gray-700 mb-4">
                 If you're an employer, recruiter, or someone looking to collaborate — then shoot me an email and I’ll happily share it!<br /><br />
                 I like to keep my resume off the public web.<br />
                 <span className="italic">Mystery = charm, right?</span>
               </p>
               <p className="text-sm text-gray-500">
-                <a href="mailto:you@example.com" className="underline text-primary">
+                <a href="mailto:ahmedjt.intern@gmail.com" className="underline text-primary">
                   ahmedjt.intern@gmail.com
                 </a>
               </p>
