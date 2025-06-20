@@ -7,7 +7,7 @@ const skills = [
     name: "Python",
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/2048px-Python.svg.png"
+        src="/logos/Python.png"
         alt="Python Logo"
         className="h-10 w-10 object-contain"
       />
@@ -18,7 +18,7 @@ const skills = [
     name: "Java",
     icon: (
       <img
-        src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/181_Java_logo_logos-512.png"
+        src="/logos/java.webp"
         alt="Java Logo"
         className="h-10 w-10 object-contain"
       />
@@ -29,7 +29,7 @@ const skills = [
     name: "C",
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png"
+        src="/logos/C.png"
         alt="C Logo"
         className="h-10 w-10 object-contain"
       />
@@ -40,7 +40,7 @@ const skills = [
     name: "JavaScript",
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/768px-JavaScript-logo.png"
+        src="/logos/JS.png"
         alt="JavaScript Logo"
         className="h-10 w-10 object-contain"
       />
@@ -51,7 +51,7 @@ const skills = [
     name: "TypeScript",
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/640px-Typescript.svg.png"
+        src="/logos/TS.png"
         alt="TypeScript Logo"
         className="h-10 w-10 object-contain"
       />
@@ -62,7 +62,7 @@ const skills = [
     name: "ARM Assembly",
     icon: (
       <img
-        src="https://cdn1.iconfinder.com/data/icons/technology-and-hardware-2/200/vector_66_06-1024.png"
+        src="/logos/Assembly.webp"
         alt="ARM Assembly Logo"
         className="h-10 w-10 object-contain"
       />
@@ -75,7 +75,7 @@ const skills = [
     name: "HTML",
     icon: (
       <img
-        src="https://cdn-icons-png.flaticon.com/512/732/732212.png"
+        src="/logos/html.webp"
         alt="HTML Logo"
         className="h-10 w-10 object-contain"
       />
@@ -86,7 +86,7 @@ const skills = [
     name: "CSS",
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/2048px-CSS3_logo.svg.png"
+        src="/logos/css.webp"
         alt="CSS Logo"
         className="h-10 w-10 object-contain"
       />
@@ -97,7 +97,7 @@ const skills = [
     name: "Tailwind CSS",
     icon: (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/640px-Tailwind_CSS_Logo.svg.png"
+        src="/logos/tailwind.webp"
         alt="Tailwind CSS Logo"
         className="h-10 w-10 object-contain"
       />
@@ -108,7 +108,7 @@ const skills = [
     name: "React",
     icon: (
       <img
-        src="https://cdn1.iconfinder.com/data/icons/unicons-line-vol-5/24/react-512.png"
+        src="/logos/react.webp"
         alt="React Logo"
         className="h-10 w-10 object-contain"
       />
@@ -119,7 +119,7 @@ const skills = [
     name: "Angular",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Angular"
+        src="/logos/angular.webp"
         alt="Angular Logo"
         className="h-10 w-10 object-contain"
       />
@@ -132,7 +132,7 @@ const skills = [
     name: "npm",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=npm"
+        src="/logos/npm.webp"
         alt="npm Logo"
         className="h-10 w-10 object-contain"
       />
@@ -143,7 +143,7 @@ const skills = [
     name: "Node.js",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Node"
+        src="/logos/nodejs.webp"
         alt="Node.js Logo"
         className="h-10 w-10 object-contain"
       />
@@ -154,7 +154,7 @@ const skills = [
     name: "Express",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Express"
+        src="/logos/express.webp"
         alt="Express Logo"
         className="h-10 w-10 object-contain"
       />
@@ -167,7 +167,7 @@ const skills = [
     name: "MySQL",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=MySQL"
+        src="/logos/mysql.webp"
         alt="MySQL Logo"
         className="h-10 w-10 object-contain"
       />
@@ -178,7 +178,7 @@ const skills = [
     name: "MongoDB",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Mongo"
+        src="/logos/mongodb.webp"
         alt="MongoDB Logo"
         className="h-10 w-10 object-contain"
       />
@@ -189,7 +189,7 @@ const skills = [
     name: "PostgreSQL",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=PostgreSQL"
+        src="/logos/postgresql.webp"
         alt="PostgreSQL Logo"
         className="h-10 w-10 object-contain"
       />
@@ -202,7 +202,7 @@ const skills = [
     name: "Git",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Git"
+        src="/logos/git.webp"
         alt="Git Logo"
         className="h-10 w-10 object-contain"
       />
@@ -213,7 +213,7 @@ const skills = [
     name: "GitHub",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=GitHub"
+        src="/logos/github.webp"
         alt="GitHub Logo"
         className="h-10 w-10 object-contain"
       />
@@ -226,7 +226,7 @@ const skills = [
     name: "TensorFlow",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=TF"
+        src="/logos/tensorflow.webp"
         alt="TensorFlow Logo"
         className="h-10 w-10 object-contain"
       />
@@ -237,7 +237,7 @@ const skills = [
     name: "Keras",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Keras"
+        src="/logos/keras.webp"
         alt="Keras Logo"
         className="h-10 w-10 object-contain"
       />
@@ -248,7 +248,7 @@ const skills = [
     name: "PyTorch",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Torch"
+        src="/logos/pytorch.webp"
         alt="PyTorch Logo"
         className="h-10 w-10 object-contain"
       />
@@ -259,7 +259,7 @@ const skills = [
     name: "Scikit-learn",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=SkLearn"
+        src="/logos/scikitlearn.webp"
         alt="Scikit-learn Logo"
         className="h-10 w-10 object-contain"
       />
@@ -270,7 +270,7 @@ const skills = [
     name: "NumPy",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=NumPy"
+        src="/logos/numpy.webp"
         alt="NumPy Logo"
         className="h-10 w-10 object-contain"
       />
@@ -281,7 +281,7 @@ const skills = [
     name: "Pandas",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Pandas"
+        src="/logos/pandas.webp"
         alt="Pandas Logo"
         className="h-10 w-10 object-contain"
       />
@@ -292,7 +292,7 @@ const skills = [
     name: "Matplotlib",
     icon: (
       <img
-        src="https://via.placeholder.com/40?text=Plot"
+        src="/logos/matplotlib.webp"
         alt="Matplotlib Logo"
         className="h-10 w-10 object-contain"
       />
