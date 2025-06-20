@@ -12,7 +12,6 @@ import {
   DiCss3,
   DiHtml5,
   DiJava,
-  DiPython,
 } from "react-icons/di";
 
 import {
@@ -36,7 +35,17 @@ import {
 
 const skills = [
   // Languages
-  { name: "Python", icon: <DiPython size={40} />, category: "languages" },
+  {
+    name: "Python",
+    icon: (
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/2048px-Python.svg.png"
+        alt="Python Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "languages",
+  },
   { name: "Java", icon: <DiJava size={40} />, category: "languages" },
   { name: "C", icon: <SiC size={40} />, category: "languages" },
   { name: "JavaScript", icon: <DiJavascript1 size={40} />, category: "languages" },
