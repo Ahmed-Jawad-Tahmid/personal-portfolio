@@ -226,7 +226,7 @@ const skills = [
     name: "TensorFlow",
     icon: (
       <img
-        src="/logos/tensorflow.webp"
+        src="/logos/Tensorflow.png"
         alt="TensorFlow Logo"
         className="h-10 w-10 object-contain"
       />
@@ -237,7 +237,7 @@ const skills = [
     name: "Keras",
     icon: (
       <img
-        src="/logos/keras.webp"
+        src="/logos/keras.png"
         alt="Keras Logo"
         className="h-10 w-10 object-contain"
       />
@@ -248,7 +248,7 @@ const skills = [
     name: "PyTorch",
     icon: (
       <img
-        src="/logos/pytorch.webp"
+        src="/logos/Pytorch.png"
         alt="PyTorch Logo"
         className="h-10 w-10 object-contain"
       />
@@ -259,7 +259,7 @@ const skills = [
     name: "Scikit-learn",
     icon: (
       <img
-        src="/logos/scikitlearn.webp"
+        src="/logos/Scikit_learn.png"
         alt="Scikit-learn Logo"
         className="h-10 w-10 object-contain"
       />
@@ -270,7 +270,7 @@ const skills = [
     name: "NumPy",
     icon: (
       <img
-        src="/logos/numpy.webp"
+        src="/logos/numpy.png"
         alt="NumPy Logo"
         className="h-10 w-10 object-contain"
       />
@@ -281,7 +281,7 @@ const skills = [
     name: "Pandas",
     icon: (
       <img
-        src="/logos/pandas.webp"
+        src="/logos/pandas.png"
         alt="Pandas Logo"
         className="h-10 w-10 object-contain"
       />
@@ -292,7 +292,7 @@ const skills = [
     name: "Matplotlib",
     icon: (
       <img
-        src="/logos/matplotlib.webp"
+        src="/logos/Matplotlib.png"
         alt="Matplotlib Logo"
         className="h-10 w-10 object-contain"
       />
