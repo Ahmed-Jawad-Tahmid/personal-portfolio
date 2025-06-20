@@ -60,36 +60,36 @@ export const ContactSection = () => {
           <div className="space-y-8">
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
 
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Mail className="h-6 w-6 text-primary" />
+            <div className="space-y-10">
+                {/* Email */}
+                <div className="flex flex-col items-center text-center space-y-2">
+                  <div className="p-3 rounded-full bg-primary/10">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Email</h4>
+                    <a
+                      href="mailto:ahmedjawadtahmid@gmail.com"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      ahmedjawadtahmid@gmail.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-medium">Email</h4>
-                  <a
-                    href="mailto:ahmedjawadtahmid@gmail.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    ahmedjawadtahmid@gmail.com
-                  </a>
+
+                {/* Location */}
+                <div className="flex flex-col items-center text-center space-y-2">
+                  <div className="p-3 rounded-full bg-primary/10">
+                    <MapPin className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Location</h4>
+                    <span className="text-muted-foreground">Calgary, AB, Canada</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Location</h4>
-                  <span className="text-muted-foreground">
-                    Calgary, AB, Canada
-                  </span>
-                </div>
-              </div>
-            </div>
 
-            {/* Connect With Me Heading + Centered Icons */}
             <div className="pt-12 text-center">
               <h4 className="font-medium mb-4">Connect With Me</h4>
               <div className="flex justify-center space-x-6">
