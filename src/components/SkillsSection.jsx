@@ -126,8 +126,24 @@ const skills = [
     ),
     category: "frontend",
   },
-  { name: "Tailwind CSS", icon: <SiTailwindcss size={40} />, category: "frontend" },
-  { name: "React", icon: <DiReact size={40} />, category: "frontend" },
+  { name: "Tailwind CSS", 
+    icon: (
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/640px-Tailwind_CSS_Logo.svg.png"
+        alt="CSS Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ), 
+    category: "frontend" },
+  { name: "React", 
+    icon: (
+      <img
+        src="https://cdn1.iconfinder.com/data/icons/unicons-line-vol-5/24/react-512.png"
+        alt="CSS Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ), 
+    category: "frontend" },
   { name: "Angular", icon: <SiAngular size={40} />, category: "frontend" },
 
   // Backend
