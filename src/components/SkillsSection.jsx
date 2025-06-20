@@ -167,7 +167,7 @@ const skills = [
     name: "MySQL",
     icon: (
       <img
-        src="/logos/mysql.webp"
+        src="/logos/mysql.png"
         alt="MySQL Logo"
         className="h-10 w-10 object-contain"
       />
@@ -178,7 +178,7 @@ const skills = [
     name: "MongoDB",
     icon: (
       <img
-        src="/logos/mongodb.webp"
+        src="/logos/mongodb.png"
         alt="MongoDB Logo"
         className="h-10 w-10 object-contain"
       />
@@ -189,7 +189,7 @@ const skills = [
     name: "PostgreSQL",
     icon: (
       <img
-        src="/logos/postgresql.webp"
+        src="/logos/postgresql.png"
         alt="PostgreSQL Logo"
         className="h-10 w-10 object-contain"
       />
@@ -213,7 +213,7 @@ const skills = [
     name: "GitHub",
     icon: (
       <img
-        src="/logos/github.webp"
+        src="/logos/github.png"
         alt="GitHub Logo"
         className="h-10 w-10 object-contain"
       />
