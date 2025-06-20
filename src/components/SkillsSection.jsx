@@ -12,6 +12,7 @@ import {
   DiCss3,
   DiHtml5,
   DiJava,
+  DiPython,
 } from "react-icons/di";
 
 import {
@@ -46,14 +47,85 @@ const skills = [
     ),
     category: "languages",
   },
-  { name: "Java", icon: <DiJava size={40} />, category: "languages" },
-  { name: "C", icon: <SiC size={40} />, category: "languages" },
-  { name: "JavaScript", icon: <DiJavascript1 size={40} />, category: "languages" },
-  { name: "TypeScript", icon: <SiTypescript size={40} />, category: "languages" },
+  {
+    name: "Java",
+    icon: (
+      <img
+        src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/181_Java-512.png"
+        alt="Java Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "languages",
+  },
+  {
+    name: "C",
+    icon: (
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png"
+        alt="C Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "languages",
+  },
+  {
+    name: "JavaScript",
+    icon: (
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/768px-JavaScript-logo.png"
+        alt="JavaScript Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "languages",
+  },
+  { name: "TypeScript", 
+    icon: (
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg/640px-Typescript.svg.png"
+        alt="ARM Assembly"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "languages",
+  },
+
+  {
+    name: "ARM Assembly",
+    icon: (
+      <img
+        src="https://cdn1.iconfinder.com/data/icons/technology-and-hardware-2/200/vector_66_06-1024.png"
+        alt="ARM Assembly"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "languages",
+  },
 
   // Frontend
-  { name: "HTML", icon: <DiHtml5 size={40} />, category: "frontend" },
-  { name: "CSS", icon: <DiCss3 size={40} />, category: "frontend" },
+  {
+    name: "HTML",
+    icon: (
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/732/732212.png"
+        alt="HTML Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "frontend",
+  },
+  {
+    name: "CSS",
+    icon: (
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/2048px-CSS3_logo.svg.png"
+        alt="CSS Logo"
+        className="h-10 w-10 object-contain"
+      />
+    ),
+    category: "frontend",
+  },
   { name: "Tailwind CSS", icon: <SiTailwindcss size={40} />, category: "frontend" },
   { name: "React", icon: <DiReact size={40} />, category: "frontend" },
   { name: "Angular", icon: <SiAngular size={40} />, category: "frontend" },
