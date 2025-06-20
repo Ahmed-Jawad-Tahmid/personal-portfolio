@@ -75,7 +75,7 @@ const skills = [
     name: "HTML",
     icon: (
       <img
-        src="/logos/html.webp"
+        src="/logos/HTML.png"
         alt="HTML Logo"
         className="h-10 w-10 object-contain"
       />
@@ -86,7 +86,7 @@ const skills = [
     name: "CSS",
     icon: (
       <img
-        src="/logos/css.webp"
+        src="/logos/CSS.png"
         alt="CSS Logo"
         className="h-10 w-10 object-contain"
       />
@@ -97,7 +97,7 @@ const skills = [
     name: "Tailwind CSS",
     icon: (
       <img
-        src="/logos/tailwind.webp"
+        src="/logos/Tailwind.png"
         alt="Tailwind CSS Logo"
         className="h-10 w-10 object-contain"
       />
@@ -108,7 +108,7 @@ const skills = [
     name: "React",
     icon: (
       <img
-        src="/logos/react.webp"
+        src="/logos/React.webp"
         alt="React Logo"
         className="h-10 w-10 object-contain"
       />
@@ -119,7 +119,7 @@ const skills = [
     name: "Angular",
     icon: (
       <img
-        src="/logos/angular.webp"
+        src="/logos/Angular.webp"
         alt="Angular Logo"
         className="h-10 w-10 object-contain"
       />
@@ -132,7 +132,7 @@ const skills = [
     name: "npm",
     icon: (
       <img
-        src="/logos/npm.webp"
+        src="/logos/npm.png"
         alt="npm Logo"
         className="h-10 w-10 object-contain"
       />
@@ -143,7 +143,7 @@ const skills = [
     name: "Node.js",
     icon: (
       <img
-        src="/logos/nodejs.webp"
+        src="/logos/nodejs.png"
         alt="Node.js Logo"
         className="h-10 w-10 object-contain"
       />
@@ -154,7 +154,7 @@ const skills = [
     name: "Express",
     icon: (
       <img
-        src="/logos/express.webp"
+        src="/logos/express.png"
         alt="Express Logo"
         className="h-10 w-10 object-contain"
       />
