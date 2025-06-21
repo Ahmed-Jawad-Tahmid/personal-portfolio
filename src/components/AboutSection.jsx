@@ -33,7 +33,7 @@ export const AboutSection = () => {
 
               <button
                 onClick={() => setShowModal(true)}
-                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
+                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 cursor-pointer"
               >
                 Download Resume
               </button>

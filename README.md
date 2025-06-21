@@ -1,6 +1,6 @@
 # My Personal Portfolio Website
 
-This repository contains the source code for my personal portfolio website. 
+This repo contains the source code for my personal portfolio website. 
 
 Live Website: https://www.ahmedjt.com/
 
@@ -19,6 +19,6 @@ Live Website: https://www.ahmedjt.com/
 
 - **Frontend:** React (with Vite)
 - **Styling:** TailwindCSS
-- **Icons:** Lucide React, React Icons
+- **Icons:** Lucide React, React Icons and png files
 - **Forms:** Formspree (Email handling)
 - **Animations:** CSS keyframes and utility classes
