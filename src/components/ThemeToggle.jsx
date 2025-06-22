@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [showSunrise, setShowSunrise] = useState(false);
-
+  const [isDarkMode, setIsDarkMode] = useState(true); // default to dark
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
 
@@ -21,8 +19,6 @@ export const ThemeToggle = () => {
 
   const toggleTheme = () => {
     if (isDarkMode) {
-      setShowSunrise(true);
-      setTimeout(() => setShowSunrise(false), 1500);
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
       setIsDarkMode(false);
@@ -35,9 +31,6 @@ export const ThemeToggle = () => {
 
   return (
     <>
-      {showSunrise && (
-        <div className="sunrise-glow fixed inset-0 z-40 pointer-events-none animate-sunrise" />
-      )}
 
       <button
         onClick={toggleTheme}
