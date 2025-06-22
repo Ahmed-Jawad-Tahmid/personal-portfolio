@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true); // default to dark
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [showSunrise, setShowSunrise] = useState(false);
 
   useEffect(() => {
@@ -21,10 +21,8 @@ export const ThemeToggle = () => {
 
   const toggleTheme = () => {
     if (isDarkMode) {
-      // sunrise effect
       setShowSunrise(true);
       setTimeout(() => setShowSunrise(false), 1500);
-
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
       setIsDarkMode(false);
@@ -37,16 +35,15 @@ export const ThemeToggle = () => {
 
   return (
     <>
-      {/* Sunrise effect overlay */}
       {showSunrise && (
-        <div className="sunrise-overlay fixed inset-0 z-40 pointer-events-none" />
+        <div className="sunrise-glow fixed inset-0 z-40 pointer-events-none animate-sunrise" />
       )}
 
       <button
         onClick={toggleTheme}
         className={cn(
           "p-2 rounded-full transition-colors duration-300 text-primary",
-          "hover:bg-primary/10 active:scale-95 focus:outline-none"
+          "hover:bg-primary/10 active:scale-95 focus:outline-none cursor-pointer"
         )}
         aria-label="Toggle theme"
       >
