@@ -1,4 +1,5 @@
-import { BadgeCheck, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { BadgeCheck, ExternalLink, RotateCw } from "lucide-react";
 
 const certifications = [
   {
@@ -13,6 +14,76 @@ const certifications = [
   },
 ];
 
+const CertCard = ({ cert }) => {
+  const [flipped, setFlipped] = useState(false);
+
+  return (
+    <div className="w-56 h-64" style={{ perspective: "1000px" }}>
+      <div
+        className="relative w-full h-full transition-transform duration-700"
+        style={{
+          transformStyle: "preserve-3d",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
+      >
+        {/* Front */}
+        <div
+          className="absolute inset-0 rounded-2xl bg-card border border-orange-400/30 flex flex-col items-center justify-center gap-3 shadow-md"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <img
+            src={cert.badgeImg}
+            alt={`${cert.title} badge`}
+            className="w-44 h-44 object-contain"
+          />
+          <a
+            href={cert.verifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+          >
+            View on Credly <ExternalLink className="h-3 w-3" />
+          </a>
+          {/* Flip trigger */}
+          <button
+            onClick={() => setFlipped(true)}
+            className="absolute top-2 right-2 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+            aria-label="Show details"
+          >
+            <RotateCw className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        {/* Back */}
+        <div
+          className="absolute inset-0 rounded-2xl bg-card border border-orange-400/30 flex flex-col items-center justify-center gap-3 p-6 shadow-md text-center"
+          style={{
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+        >
+          <p className="text-xs font-mono text-muted-foreground">{cert.code}</p>
+          <h3 className="font-semibold text-sm leading-snug">{cert.title}</h3>
+          <p className="text-xs text-muted-foreground">{cert.issuer}</p>
+          <p className="text-xs text-muted-foreground">{cert.date}</p>
+          <span className="flex items-center gap-1 text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+            <BadgeCheck className="h-3.5 w-3.5" />
+            Verified
+          </span>
+          {/* Flip back */}
+          <button
+            onClick={() => setFlipped(false)}
+            className="absolute top-2 right-2 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+            aria-label="Show badge"
+          >
+            <RotateCw className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const CertificationsSection = () => {
   return (
     <section id="certifications" className="py-24 px-4 relative bg-secondary/30">
@@ -26,64 +97,7 @@ export const CertificationsSection = () => {
 
         <div className="flex justify-center">
           {certifications.map((cert, index) => (
-            <div
-              key={index}
-              className="group w-56 h-64"
-              style={{ perspective: "1000px" }}
-            >
-              {/* Flip container */}
-              <div
-                className="relative w-full h-full transition-transform duration-700"
-                style={{
-                  transformStyle: "preserve-3d",
-                  transform: "rotateY(0deg)",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "rotateY(180deg)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "rotateY(0deg)")
-                }
-              >
-                {/* Front */}
-                <div
-                  className="absolute inset-0 rounded-2xl bg-card border border-orange-400/30 flex items-center justify-center shadow-md"
-                  style={{ backfaceVisibility: "hidden" }}
-                >
-                  <img
-                    src={cert.badgeImg}
-                    alt={`${cert.title} badge`}
-                    className="w-44 h-44 object-contain"
-                  />
-                </div>
-
-                {/* Back */}
-                <div
-                  className="absolute inset-0 rounded-2xl bg-card border border-orange-400/30 flex flex-col items-center justify-center gap-3 p-6 shadow-md text-center"
-                  style={{
-                    backfaceVisibility: "hidden",
-                    transform: "rotateY(180deg)",
-                  }}
-                >
-                  <p className="text-xs font-mono text-muted-foreground">{cert.code}</p>
-                  <h3 className="font-semibold text-sm leading-snug">{cert.title}</h3>
-                  <p className="text-xs text-muted-foreground">{cert.issuer}</p>
-                  <p className="text-xs text-muted-foreground">{cert.date}</p>
-                  <span className="flex items-center gap-1 text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
-                    <BadgeCheck className="h-3.5 w-3.5" />
-                    Verified
-                  </span>
-                  <a
-                    href={cert.verifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-                  >
-                    View on Credly <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-              </div>
-            </div>
+            <CertCard key={index} cert={cert} />
           ))}
         </div>
       </div>
