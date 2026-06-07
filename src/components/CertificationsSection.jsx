@@ -7,10 +7,20 @@ const certifications = [
     code: "CLF-C02",
     issuer: "Amazon Web Services Training and Certification",
     date: "2026",
-    description:
-      "Validates cloud fluency and foundational AWS knowledge — covering core services, security, architecture, pricing, and support models.",
     badgeImg: "https://images.credly.com/size/680x680/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
+    borderColor: "border-orange-400/30",
+    verifyLabel: "View on Credly",
     verifyUrl: "https://www.credly.com/badges/00f953ad-d30d-4607-adad-b81c9e2a92df/public_url",
+  },
+  {
+    title: "DevOps Foundations: The Core Principles and Practices",
+    code: "Microsoft Learn",
+    issuer: "Microsoft",
+    date: "2025",
+    badgeImg: "https://learn.microsoft.com/training/achievements/generic-trophy.svg",
+    borderColor: "border-blue-500/30",
+    verifyLabel: "View on Microsoft Learn",
+    verifyUrl: "https://learn.microsoft.com/en-us/users/ahmedjawadtahmid-2180/achievements/e5aakhnp",
   },
 ];
 
@@ -28,7 +38,7 @@ const CertCard = ({ cert }) => {
       >
         {/* Front */}
         <div
-          className="absolute inset-0 rounded-2xl bg-card border border-orange-400/30 flex flex-col items-center justify-center gap-3 shadow-md"
+          className={`absolute inset-0 rounded-2xl bg-card border ${cert.borderColor} flex flex-col items-center justify-center gap-3 shadow-md`}
           style={{ backfaceVisibility: "hidden" }}
         >
           <img
@@ -42,9 +52,8 @@ const CertCard = ({ cert }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
           >
-            View on Credly <ExternalLink className="h-3 w-3" />
+            {cert.verifyLabel} <ExternalLink className="h-3 w-3" />
           </a>
-          {/* Flip trigger */}
           <button
             onClick={() => setFlipped(true)}
             className="absolute top-2 right-2 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
@@ -56,7 +65,7 @@ const CertCard = ({ cert }) => {
 
         {/* Back */}
         <div
-          className="absolute inset-0 rounded-2xl bg-card border border-orange-400/30 flex flex-col items-center justify-center gap-3 p-6 shadow-md text-center"
+          className={`absolute inset-0 rounded-2xl bg-card border ${cert.borderColor} flex flex-col items-center justify-center gap-3 p-6 shadow-md text-center`}
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
@@ -70,7 +79,6 @@ const CertCard = ({ cert }) => {
             <BadgeCheck className="h-3.5 w-3.5" />
             Verified
           </span>
-          {/* Flip back */}
           <button
             onClick={() => setFlipped(false)}
             className="absolute top-2 right-2 p-1.5 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
@@ -95,7 +103,7 @@ export const CertificationsSection = () => {
           Industry-recognized credentials that complement my academic and hands-on experience.
         </p>
 
-        <div className="flex justify-center">
+        <div className="flex flex-wrap justify-center gap-6">
           {certifications.map((cert, index) => (
             <CertCard key={index} cert={cert} />
           ))}
