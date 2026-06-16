@@ -36,8 +36,8 @@ const education = [
 const experience = [
   {
     title: "Software Research Intern",
-    org: "UCalgary · CI/CD Pipelines",
-    detail: "Empirical research on CI/CD pipeline pitfalls. Analyzed GitHub Actions configs across open-source repositories.",
+    org: "UCalgary · Security in CI/CD Pipelines",
+    detail: "Empirical research on security in CI/CD pipelines. Analyzed GitHub Actions configs across open-source repositories.",
     period: "May – Aug 2026",
     startYear: 2026, startMonth: 5,
     endYear:   2026, endMonth:   8,
@@ -60,46 +60,35 @@ const experience = [
   },
 ];
 
-const Bar = ({ entry, tooltipSide = "right" }) => {
+const Bar = ({ entry }) => {
   const Icon   = entry.icon;
   const top    = toTop(entry.endYear, entry.endMonth);
   const height = toHeight(entry.startYear, entry.startMonth, entry.endYear, entry.endMonth);
-  const isEdu  = !!entry.icon === GraduationCap;
+  const isPrimary = entry.iconClass === "text-primary";
 
   return (
     <div
-      className={`absolute rounded-xl ${entry.barClass} transition-all duration-300 group cursor-default`}
+      className={`absolute rounded-xl ${entry.barClass} cursor-default overflow-hidden`}
       style={{ top, height, left: 0, right: 0, zIndex: 10 }}
     >
-      {/* Label */}
-      <div className="flex items-center gap-2 px-3 py-2">
-        <div className={`p-1 rounded-full ${entry.iconClass === "text-primary" ? "bg-primary/20" : "bg-white/20"} flex-shrink-0`}>
-          <Icon className={`h-3.5 w-3.5 ${entry.iconClass}`} />
-        </div>
-        <div className="min-w-0">
-          <p className={`text-xs font-semibold truncate ${entry.iconClass === "text-primary" ? "text-primary" : "text-white"}`}>
+      <div className="flex flex-col gap-0.5 px-3 py-2 h-full">
+        {/* Icon + title row */}
+        <div className="flex items-center gap-2">
+          <div className={`p-1 rounded-full flex-shrink-0 ${isPrimary ? "bg-primary/20" : "bg-white/20"}`}>
+            <Icon className={`h-3.5 w-3.5 ${entry.iconClass}`} />
+          </div>
+          <p className={`text-xs font-semibold truncate ${isPrimary ? "text-primary" : "text-white"}`}>
             {entry.title}
           </p>
-          <p className={`text-xs truncate ${entry.iconClass === "text-primary" ? "text-primary/70" : "text-white/80"}`}>
-            {entry.period}
-          </p>
         </div>
-      </div>
-
-      {/* Hover tooltip */}
-      <div
-        className={`absolute top-0 z-50 w-60 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 ${
-          tooltipSide === "left" ? "right-full mr-3" : "left-full ml-3"
-        }`}
-      >
-        <div className="bg-card border border-border rounded-xl shadow-lg p-4">
-          <p className="font-semibold text-sm mb-1">{entry.title}</p>
-          <p className="text-xs text-muted-foreground mb-2">{entry.org}</p>
-          <p className="text-xs text-muted-foreground leading-relaxed">{entry.detail}</p>
-          <span className={`inline-block mt-3 text-xs px-2 py-0.5 rounded-full ${entry.labelClass}`}>
-            {entry.period}
-          </span>
-        </div>
+        {/* Org */}
+        <p className={`text-xs truncate pl-1 ${isPrimary ? "text-primary/70" : "text-white/80"}`}>
+          {entry.org}
+        </p>
+        {/* Period */}
+        <p className={`text-xs truncate pl-1 ${isPrimary ? "text-primary/50" : "text-white/60"}`}>
+          {entry.period}
+        </p>
       </div>
     </div>
   );
