@@ -107,11 +107,11 @@ const Bar = ({ entry, tooltipSide = "right" }) => {
           <div className="bg-card border border-border rounded-xl shadow-xl p-4">
             <p className="font-semibold text-sm mb-1">{entry.title}</p>
             <p className="text-xs text-muted-foreground mb-3">{entry.org} · {entry.period}</p>
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-left">
               {entry.bullets.map((b, i) => (
-                <li key={i} className="flex gap-2 text-xs text-muted-foreground">
+                <li key={i} className="flex gap-2 text-xs text-muted-foreground text-left">
                   <span className="text-primary mt-0.5 flex-shrink-0">•</span>
-                  <span>{b}</span>
+                  <span className="text-left">{b}</span>
                 </li>
               ))}
             </ul>
