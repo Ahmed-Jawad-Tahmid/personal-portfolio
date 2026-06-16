@@ -4,7 +4,7 @@ const YEAR_START  = 2022;
 const YEAR_END    = 2027;
 const SPAN        = YEAR_END - YEAR_START;
 const H           = 500;
-const MIN_BAR_H   = 52;
+const MIN_BAR_H   = 90;
 const YEAR_LABELS = [2027, 2026, 2025, 2024, 2023, 2022];
 
 const toTop = (year, month = 0) => {
@@ -39,8 +39,9 @@ const experience = [
     org: "UCalgary · Security in CI/CD Pipelines",
     detail: "Empirical research on security in CI/CD pipelines. Analyzed GitHub Actions configs across open-source repositories.",
     period: "May – Aug 2026",
-    startYear: 2026, startMonth: 0,
-    endYear:   2027, endMonth:   0,
+    startYear: 2026, startMonth: 5,
+    endYear:   2026, endMonth:   8,
+    snapYear: 2026,
     barClass:   "bg-violet-500/80 border border-violet-400/60",
     labelClass: "bg-violet-600 text-white border border-violet-500",
     icon: Briefcase,
@@ -51,8 +52,9 @@ const experience = [
     org: "UCalgary · Database Inconsistencies",
     detail: "Python scripts to parse & clean large datasets for modal-logic proof-tree generation. Reduced computation time by 25%.",
     period: "May – Aug 2024",
-    startYear: 2024, startMonth: 0,
-    endYear:   2025, endMonth:   0,
+    startYear: 2024, startMonth: 5,
+    endYear:   2024, endMonth:   8,
+    snapYear: 2024,
     barClass:   "bg-blue-500/80 border border-blue-400/60",
     labelClass: "bg-blue-600 text-white border border-blue-500",
     icon: Briefcase,
@@ -62,8 +64,8 @@ const experience = [
 
 const Bar = ({ entry }) => {
   const Icon   = entry.icon;
-  const top    = toTop(entry.endYear, entry.endMonth);
-  const height = toHeight(entry.startYear, entry.startMonth, entry.endYear, entry.endMonth);
+  const height = entry.snapYear ? MIN_BAR_H : toHeight(entry.startYear, entry.startMonth, entry.endYear, entry.endMonth);
+  const top    = entry.snapYear ? toTop(entry.snapYear, 0) - height : toTop(entry.endYear, entry.endMonth);
   const isPrimary = entry.iconClass === "text-primary";
 
   return (
@@ -77,7 +79,7 @@ const Bar = ({ entry }) => {
           <Icon className={`h-3.5 w-3.5 ${entry.iconClass}`} />
         </div>
         {/* Text */}
-        <div className="flex flex-col gap-0.5 min-w-0">
+        <div className="flex flex-col gap-0.5 min-w-0 text-left">
           <p className={`text-xs font-semibold truncate ${isPrimary ? "text-primary" : "text-white"}`}>
             {entry.title}
           </p>
