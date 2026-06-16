@@ -39,8 +39,8 @@ const experience = [
     org: "UCalgary · Security in CI/CD Pipelines",
     detail: "Empirical research on security in CI/CD pipelines. Analyzed GitHub Actions configs across open-source repositories.",
     period: "May – Aug 2026",
-    startYear: 2026, startMonth: 5,
-    endYear:   2026, endMonth:   8,
+    startYear: 2026, startMonth: 0,
+    endYear:   2027, endMonth:   0,
     barClass:   "bg-violet-500/80 border border-violet-400/60",
     labelClass: "bg-violet-600 text-white border border-violet-500",
     icon: Briefcase,
@@ -51,8 +51,8 @@ const experience = [
     org: "UCalgary · Database Inconsistencies",
     detail: "Python scripts to parse & clean large datasets for modal-logic proof-tree generation. Reduced computation time by 25%.",
     period: "May – Aug 2024",
-    startYear: 2024, startMonth: 5,
-    endYear:   2024, endMonth:   8,
+    startYear: 2024, startMonth: 0,
+    endYear:   2025, endMonth:   0,
     barClass:   "bg-blue-500/80 border border-blue-400/60",
     labelClass: "bg-blue-600 text-white border border-blue-500",
     icon: Briefcase,
@@ -71,24 +71,23 @@ const Bar = ({ entry }) => {
       className={`absolute rounded-xl ${entry.barClass} cursor-default overflow-hidden`}
       style={{ top, height, left: 0, right: 0, zIndex: 10 }}
     >
-      <div className="flex flex-col gap-0.5 px-3 py-2 h-full">
-        {/* Icon + title row */}
-        <div className="flex items-center gap-2">
-          <div className={`p-1 rounded-full flex-shrink-0 ${isPrimary ? "bg-primary/20" : "bg-white/20"}`}>
-            <Icon className={`h-3.5 w-3.5 ${entry.iconClass}`} />
-          </div>
+      <div className="flex gap-2 px-3 py-2 h-full">
+        {/* Icon */}
+        <div className={`p-1 rounded-full flex-shrink-0 h-fit mt-0.5 ${isPrimary ? "bg-primary/20" : "bg-white/20"}`}>
+          <Icon className={`h-3.5 w-3.5 ${entry.iconClass}`} />
+        </div>
+        {/* Text */}
+        <div className="flex flex-col gap-0.5 min-w-0">
           <p className={`text-xs font-semibold truncate ${isPrimary ? "text-primary" : "text-white"}`}>
             {entry.title}
           </p>
+          <p className={`text-xs truncate ${isPrimary ? "text-primary/70" : "text-white/80"}`}>
+            {entry.org}
+          </p>
+          <p className={`text-xs truncate ${isPrimary ? "text-primary/50" : "text-white/60"}`}>
+            {entry.period}
+          </p>
         </div>
-        {/* Org */}
-        <p className={`text-xs truncate pl-1 ${isPrimary ? "text-primary/70" : "text-white/80"}`}>
-          {entry.org}
-        </p>
-        {/* Period */}
-        <p className={`text-xs truncate pl-1 ${isPrimary ? "text-primary/50" : "text-white/60"}`}>
-          {entry.period}
-        </p>
       </div>
     </div>
   );
