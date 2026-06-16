@@ -22,8 +22,11 @@ const education = [
   {
     title: "BSc Computer Science",
     org: "University of Calgary",
-    detail: "Courses: Data Science, AI & ML, OS, Networks, Security, Software Engineering. 2× P.U.R.E award winner ($7,500 each).",
     period: "Sep 2022 – Jun 2027",
+    bullets: [
+      "Relevant courses: Data Science, AI & ML, Security & Privacy, Software Engineering, OS, Computer Networks, Cybersecurity, Web Development.",
+      "2× Program for Undergraduate Research Experience (P.U.R.E) award winner, valued $7,500 each.",
+    ],
     startYear: 2022, startMonth: 9,
     endYear:   2027, endMonth:   6,
     barClass:   "bg-primary/10 border border-primary/30",
@@ -37,8 +40,11 @@ const experience = [
   {
     title: "Software Research Intern",
     org: "UCalgary · Security in CI/CD Pipelines",
-    detail: "Empirical research on security in CI/CD pipelines. Analyzed GitHub Actions configs across open-source repositories.",
     period: "May – Aug 2026",
+    bullets: [
+      "Conducting empirical research on CI/CD pipelines under the supervision of a senior professor.",
+      "Analyzing GitHub Actions configuration pitfalls and fix patterns across open-source repositories.",
+    ],
     startYear: 2026, startMonth: 5,
     endYear:   2026, endMonth:   8,
     snapYear: 2026,
@@ -50,8 +56,12 @@ const experience = [
   {
     title: "Software Research Intern",
     org: "UCalgary · Database Inconsistencies",
-    detail: "Python scripts to parse & clean large datasets for modal-logic proof-tree generation. Reduced computation time by 25%.",
     period: "May – Aug 2024",
+    bullets: [
+      "Conducted research on database inconsistencies under the supervision of a senior professor.",
+      "Developed Python scripts to parse, clean, and summarize large datasets for modal-logic proof-tree generation.",
+      "Optimized algorithm efficiency by reducing computation time by 25% for complex logical formulas.",
+    ],
     startYear: 2024, startMonth: 5,
     endYear:   2024, endMonth:   8,
     snapYear: 2024,
@@ -62,7 +72,7 @@ const experience = [
   },
 ];
 
-const Bar = ({ entry }) => {
+const Bar = ({ entry, tooltipSide = "right" }) => {
   const Icon   = entry.icon;
   const height = entry.snapYear ? MIN_BAR_H : toHeight(entry.startYear, entry.startMonth, entry.endYear, entry.endMonth);
   const top    = entry.snapYear ? toTop(entry.snapYear, 0) - height : toTop(entry.endYear, entry.endMonth);
@@ -70,15 +80,14 @@ const Bar = ({ entry }) => {
 
   return (
     <div
-      className={`absolute rounded-xl ${entry.barClass} cursor-default overflow-hidden`}
+      className={`absolute rounded-xl ${entry.barClass} cursor-default overflow-visible group`}
       style={{ top, height, left: 0, right: 0, zIndex: 10 }}
     >
-      <div className="flex gap-2 px-3 py-2 h-full">
-        {/* Icon */}
+      {/* Bar content */}
+      <div className="flex gap-2 px-3 py-2 h-full overflow-hidden rounded-xl">
         <div className={`p-1 rounded-full flex-shrink-0 h-fit mt-0.5 ${isPrimary ? "bg-primary/20" : "bg-white/20"}`}>
           <Icon className={`h-3.5 w-3.5 ${entry.iconClass}`} />
         </div>
-        {/* Text */}
         <div className="flex flex-col gap-0.5 min-w-0 text-left">
           <p className={`text-xs font-semibold truncate ${isPrimary ? "text-primary" : "text-white"}`}>
             {entry.title}
@@ -91,6 +100,24 @@ const Bar = ({ entry }) => {
           </p>
         </div>
       </div>
+
+      {/* Hover tooltip with bullets */}
+      {entry.bullets && (
+        <div className={`absolute top-0 z-50 w-72 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 ${tooltipSide === "left" ? "right-full mr-3" : "left-full ml-3"}`}>
+          <div className="bg-card border border-border rounded-xl shadow-xl p-4">
+            <p className="font-semibold text-sm mb-1">{entry.title}</p>
+            <p className="text-xs text-muted-foreground mb-3">{entry.org} · {entry.period}</p>
+            <ul className="space-y-2">
+              {entry.bullets.map((b, i) => (
+                <li key={i} className="flex gap-2 text-xs text-muted-foreground">
+                  <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -114,7 +141,7 @@ export const ExperienceSection = () => {
               />
             ))}
             {experience.map((e, i) => (
-              <Bar key={i} entry={e} />
+              <Bar key={i} entry={e} tooltipSide="left" />
             ))}
           </div>
 
@@ -142,7 +169,7 @@ export const ExperienceSection = () => {
               />
             ))}
             {education.map((e, i) => (
-              <Bar key={i} entry={e} />
+              <Bar key={i} entry={e} tooltipSide="right" />
             ))}
           </div>
         </div>
