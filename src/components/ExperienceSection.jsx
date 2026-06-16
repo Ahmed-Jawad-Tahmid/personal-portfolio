@@ -113,7 +113,7 @@ export const ExperienceSection = () => {
               />
             ))}
             {experience.map((e, i) => (
-              <Bar key={i} entry={e} tooltipSide="left" />
+              <Bar key={i} entry={e} />
             ))}
           </div>
 
@@ -141,7 +141,7 @@ export const ExperienceSection = () => {
               />
             ))}
             {education.map((e, i) => (
-              <Bar key={i} entry={e} tooltipSide="right" />
+              <Bar key={i} entry={e} />
             ))}
           </div>
         </div>
