@@ -5,7 +5,7 @@ const YEAR_END    = 2027;
 const SPAN        = YEAR_END - YEAR_START;
 const H           = 500;
 const MIN_BAR_H   = 90;
-const YEAR_LABELS = [2027, 2026, 2025, 2024, 2023, 2022];
+const YEAR_LABELS = [2026, 2025, 2024, 2023, 2022];
 
 const toTop = (year, month = 0) => {
   const frac = Math.min(1, Math.max(0, (year + month / 12 - YEAR_START) / SPAN));
@@ -22,13 +22,13 @@ const education = [
   {
     title: "BSc Computer Science",
     org: "University of Calgary",
-    period: "Sep 2022 – Jun 2027",
+    period: "Sep 2022 – Dec 2026",
     bullets: [
       "Relevant courses: Data Science, AI & ML, Security & Privacy, Software Engineering, OS, Computer Networks, Cybersecurity, Web Development.",
       "2× Program for Undergraduate Research Experience (P.U.R.E) award winner, valued $7,500 each.",
     ],
     startYear: 2022, startMonth: 9,
-    endYear:   2027, endMonth:   6,
+    endYear:   2026, endMonth:   12,
     barClass:   "bg-primary/10 border border-primary/30",
     labelClass: "bg-primary/20 text-primary border border-primary/30",
     icon: GraduationCap,
