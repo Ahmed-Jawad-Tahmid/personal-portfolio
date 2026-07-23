@@ -54,7 +54,7 @@ const experience = [
     iconClass: "text-white",
   },
   {
-    title: "Software Research Intern",
+    title: "Undergraduate Research Assistant",
     org: "UCalgary · Database Inconsistencies",
     period: "May – Aug 2024",
     bullets: [
