@@ -13,6 +13,16 @@ const certifications = [
     verifyUrl: "https://www.credly.com/badges/00f953ad-d30d-4607-adad-b81c9e2a92df/public_url",
   },
   {
+    title: "AWS Certified Solutions Architect – Associate",
+    code: "SAA-C03",
+    issuer: "Amazon Web Services Training and Certification",
+    date: "2026",
+    badgeImg: "https://images.credly.com/size/680x680/images/0e284c3f-5164-4b21-8660-0d84737941bc/image.png",
+    borderColor: "border-orange-400/30",
+    verifyLabel: "View on Credly",
+    verifyUrl: "https://www.credly.com/badges/23c53cd1-f029-4846-a00b-3b5b64ab99b8/public_url",
+  },
+  {
     title: "DevOps Foundations: The Core Principles and Practices",
     code: "Microsoft Learn",
     issuer: "Microsoft",
