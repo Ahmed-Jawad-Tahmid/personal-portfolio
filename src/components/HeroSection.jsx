@@ -12,12 +12,14 @@ export const HeroSection = () => {
             <span className="opacity-0 animate-fade-in-delay-1"> Hi, I'm</span>
             <span className="text-primary opacity-0 animate-fade-in-delay-3">
               {" "}
-              Sadab
+              Jawad
             </span> 
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-4">
-            Computer Science student at the University of Calgary (graduating Dec 2026), 2× AWS Certified (CCP &amp; Solutions Architect), with research experience in CI/CD security and database systems. Always open to collaboration — feel free to reach out!
+            I'm a final-year Computer Science student at the UCalgary,
+            passionate about software engineering and machine learning.
+            Always open to collaboration so feel free to reach out!
           </p>
 
           <div className="pt-4 opacity-0 animate-fade-in-delay-4">
