@@ -91,17 +91,37 @@
 .sky-cloud span:nth-child(2) { left: 16%; bottom: 22%; width: 40%; height: 70%; border-radius: 50%; }
 .sky-cloud span:nth-child(3) { left: 44%; bottom: 26%; width: 34%; height: 56%; border-radius: 50%; }
 
-.sky-drop {
+/* With wind, clouds stop bobbing and travel across the strip instead. */
+.sky-strip:not([data-wind="calm"]) .sky-cloud { animation: sky-travel 40s linear infinite; }
+
+/* A drop falls (and is carried sideways by --dx); the <i> inside is what you see. */
+.sky-drop { position: absolute; top: -30px; animation: sky-fall 1s linear infinite; }
+.sky-drop i { display: block; border-radius: 999px; background: var(--ink); transform: rotate(var(--tilt)); }
+.sky-drop.is-snow i { background: #ffffff; animation: sky-sway 2s ease-in-out infinite alternate; }
+
+.sky-gust {
   position: absolute;
-  top: -30px;
+  left: -220px;
+  height: 3px;
   border-radius: 999px;
   background: var(--ink);
-  animation: sky-fall 1s linear infinite;
+  opacity: 0;
+  animation: sky-gust 5s linear infinite;
 }
-.sky-drop.is-snow { background: #ffffff; }
 
 @keyframes sky-drift { from { transform: translateX(-14px); } to { transform: translateX(14px); } }
-@keyframes sky-fall { from { transform: translateY(0); } to { transform: translateY(290px); } }
+@keyframes sky-travel { from { left: -240px; } to { left: 100%; } }
+@keyframes sky-fall {
+  from { transform: translate(calc(var(--dx) * -0.5), 0); }
+  to { transform: translate(calc(var(--dx) * 0.5), 290px); }
+}
+@keyframes sky-sway { from { transform: translateX(-9px); } to { transform: translateX(9px); } }
+@keyframes sky-gust {
+  0% { left: -220px; opacity: 0; }
+  15% { opacity: 0.4; }
+  85% { opacity: 0.4; }
+  100% { left: 100%; opacity: 0; }
+}
 
 .sky-wish {
   position: absolute;
@@ -242,6 +262,41 @@
 .sky-project p { margin: 0; }
 .sky-project .sky-link { margin-top: auto; }
 
+/* Skills */
+.sky-skills { display: flex; flex-direction: column; gap: 26px; }
+.sky-skill-group h2 { margin: 0 0 12px; font-family: var(--display); font-size: 22px; font-weight: 800; }
+.sky-skill-group ul { display: flex; flex-wrap: wrap; gap: 14px; margin: 0; padding: 4px 2px; list-style: none; }
+.sky-skill {
+  --r: -2deg;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  background: var(--bg);
+  font-size: 16px;
+  font-weight: 600;
+  transform: rotate(var(--r));
+  transition: transform 0.2s ease, background-color 0.6s ease;
+}
+.sky-skill:nth-child(4n + 2) { --r: 1.6deg; }
+.sky-skill:nth-child(4n + 3) { --r: -1deg; }
+.sky-skill:nth-child(4n + 4) { --r: 2.2deg; }
+.sky-skill:hover { transform: rotate(calc(var(--r) * -1.5)) translateY(-4px) scale(1.05); }
+.sky-skill-logo {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--ink);
+  border-radius: 11px;
+  background: #ffffff;
+}
+.sky-skill-logo img { width: 30px; height: 30px; object-fit: contain; }
+
 /* Certs */
 .sky-certs { display: flex; flex-direction: column; gap: 16px; }
 .sky-cert {
@@ -309,13 +364,18 @@
 
 @media (max-width: 600px) {
   .sky-cloud { scale: 0.6; transform-origin: left top; }
-  .sky-cloud:nth-child(2) { left: 38% !important; }
-  .sky-cloud:nth-child(3) { left: 70% !important; top: 34% !important; }
+  .sky-strip[data-wind="calm"] .sky-cloud:nth-child(2) { left: 38% !important; }
+  .sky-strip[data-wind="calm"] .sky-cloud:nth-child(3) { left: 70% !important; }
+  .sky-cloud:nth-child(3) { top: 34% !important; }
   .sky-strip { height: 200px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .sky-drop { top: var(--rest, 40%); }
-  .sky-cloud, .sky-drop, .sky-panel, .sky-dialog { animation: none; }
-  .sky, .sky-body { transition: none; }
-}
+/* Motion off (the Motion button, which starts off when the device asks for reduced motion). */
+.sky.is-still .sky-cloud,
+.sky.is-still .sky-drop,
+.sky.is-still .sky-drop i,
+.sky.is-still .sky-panel,
+.sky.is-still .sky-dialog { animation: none !important; }
+.sky.is-still .sky-drop { top: var(--rest, 40%); }
+.sky.is-still .sky-gust { display: none; }
+.sky.is-still, .sky.is-still .sky-body { transition: none; }

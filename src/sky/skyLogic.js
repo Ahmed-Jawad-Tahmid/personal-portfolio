@@ -10,6 +10,26 @@ export const WEATHERS = [
   { id: "snow", label: "Snow" },
 ];
 
+export const WINDS = [
+  { id: "calm", label: "Calm" },
+  { id: "breeze", label: "Breeze" },
+  { id: "gale", label: "Strong wind" },
+];
+
+// How far sideways rain and snow travel while they fall, and how fast clouds cross the strip.
+export const WIND_LOOK = {
+  calm: { dx: 0, tilt: 0, fallSpeed: 1, cloudSeconds: 0 },
+  breeze: { dx: 90, tilt: -17, fallSpeed: 0.85, cloudSeconds: 42 },
+  gale: { dx: 260, tilt: -42, fallSpeed: 0.6, cloudSeconds: 11 },
+};
+
+// Wind speed and gusts in km/h, as returned by Open-Meteo.
+export function windFromSpeed(speed, gusts) {
+  if (speed >= 30 || gusts >= 50) return "gale";
+  if (speed >= 12 || gusts >= 25) return "breeze";
+  return "calm";
+}
+
 const PALETTES = {
   dawn: { bg: "#FFE1CF", ink: "#2B1B3D", card: "#FFF4EC", accent: "#FF8552", onAccent: "#2B1B3D" },
   day: { bg: "#CDEBFF", ink: "#10243A", card: "#FFFFFF", accent: "#FFC83D", onAccent: "#10243A" },
@@ -131,21 +151,40 @@ export function buildSky({ t, sunrise, sunset, weather }) {
 }
 
 // Deterministic "random" drops so the pattern doesn't reshuffle on every render.
-export function makeDrops(weather) {
+export function makeDrops(weather, wind = "calm") {
   if (weather !== "rain" && weather !== "snow") return [];
-  const count = weather === "rain" ? 28 : 24;
+  const count = weather === "rain" ? 34 : 30;
+  const speed = WIND_LOOK[wind].fallSpeed;
   return Array.from({ length: count }, (_, k) => {
     const r1 = ((k * 37) % 100) / 100;
     const r2 = ((k * 53) % 100) / 100;
-    const duration = weather === "rain" ? 0.7 + r2 * 0.5 : 4 + r2 * 4;
+    const duration = (weather === "rain" ? 0.7 + r2 * 0.5 : 4 + r2 * 4) * speed;
     const size = weather === "rain" ? 3 : 5 + Math.round(r2 * 4);
     return {
-      left: `${(2 + r1 * 96).toFixed(1)}%`,
+      left: `${(-4 + r1 * 108).toFixed(1)}%`,
+      sway: `${(1.6 + r1 * 1.4).toFixed(2)}s`,
       width: size,
       height: weather === "rain" ? 16 : size,
       duration: `${duration.toFixed(2)}s`,
       delay: `${(-r1 * 3 * duration).toFixed(2)}s`,
       rest: `${Math.round(8 + r2 * 80)}%`,
+    };
+  });
+}
+
+// Streaks of wind that whoosh across the strip.
+export function makeGusts(wind) {
+  if (wind === "calm") return [];
+  const count = wind === "gale" ? 9 : 4;
+  return Array.from({ length: count }, (_, k) => {
+    const r1 = ((k * 41 + 13) % 100) / 100;
+    const r2 = ((k * 67 + 29) % 100) / 100;
+    const duration = wind === "gale" ? 1.5 + r2 * 1.2 : 5 + r2 * 3;
+    return {
+      top: `${Math.round(10 + r1 * 76)}%`,
+      width: Math.round(wind === "gale" ? 90 + r2 * 110 : 50 + r2 * 60),
+      duration: `${duration.toFixed(2)}s`,
+      delay: `${(-r1 * duration).toFixed(2)}s`,
     };
   });
 }
@@ -156,7 +195,7 @@ export const STARS = [
 ].map(([x, y, d]) => ({ left: `${x}%`, top: `${y}%`, size: d }));
 
 export const CLOUDS = [
-  { left: "4%", top: "18%", width: 170, height: 70, duration: "9s" },
-  { left: "34%", top: "6%", width: 230, height: 92, duration: "13s" },
-  { left: "68%", top: "24%", width: 190, height: 76, duration: "11s" },
+  { left: "4%", top: "18%", width: 170, height: 70, duration: "9s", offset: 0.1 },
+  { left: "34%", top: "6%", width: 230, height: 92, duration: "13s", offset: 0.45 },
+  { left: "68%", top: "24%", width: 190, height: 76, duration: "11s", offset: 0.78 },
 ];

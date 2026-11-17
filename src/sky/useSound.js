@@ -50,6 +50,11 @@ export function useSound() {
     if (ctxRef.current?.state === "running") note(560, 0.07, 0.035);
   }, [note]);
 
+  // Same, with a chosen pitch (used by the skill tiles so each one sounds a little different).
+  const hoverTone = useCallback((freq) => {
+    if (ctxRef.current?.state === "running") note(freq, 0.08, 0.035);
+  }, [note]);
+
   const click = useCallback((freq = 330) => {
     unlock();
     note(freq, 0.11, 0.07, 0, "triangle");
@@ -66,5 +71,5 @@ export function useSound() {
     });
   }, [unlock, note]);
 
-  return { enabled, toggle, unlock, note, hover, click };
+  return { enabled, toggle, unlock, note, hover, hoverTone, click };
 }

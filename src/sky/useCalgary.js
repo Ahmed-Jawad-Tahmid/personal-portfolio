@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { CALGARY, calgaryHours, estimateSun, isoToHours, weatherFromCode } from "./skyLogic";
+import { CALGARY, calgaryHours, estimateSun, isoToHours, weatherFromCode, windFromSpeed } from "./skyLogic";
 
 const URL =
   "https://api.open-meteo.com/v1/forecast" +
   `?latitude=${CALGARY.latitude}&longitude=${CALGARY.longitude}` +
-  "&current=weather_code,temperature_2m&daily=sunrise,sunset" +
+  "&current=weather_code,temperature_2m,wind_speed_10m,wind_gusts_10m&daily=sunrise,sunset" +
   `&timezone=${encodeURIComponent(CALGARY.timezone)}&forecast_days=1`;
 
-// Live time, weather, sunrise and sunset for Calgary. Falls back to a clear sky and
+// Live time, weather, wind, sunrise and sunset for Calgary. Falls back to a clear sky and
 // estimated sun times if the weather service can't be reached.
 export function useCalgary() {
   const [live, setLive] = useState(() => ({
     t: calgaryHours(),
     weather: "clear",
+    wind: "calm",
     temperature: null,
     offset: undefined,
     ...estimateSun(),
@@ -32,6 +33,7 @@ export function useCalgary() {
           offset: data.utc_offset_seconds,
           t: calgaryHours(data.utc_offset_seconds),
           weather: weatherFromCode(data.current.weather_code),
+          wind: windFromSpeed(data.current.wind_speed_10m ?? 0, data.current.wind_gusts_10m ?? 0),
           temperature: Math.round(data.current.temperature_2m),
           sunrise: isoToHours(data.daily.sunrise[0]),
           sunset: isoToHours(data.daily.sunset[0]),
