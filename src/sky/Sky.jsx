@@ -12,11 +12,13 @@ const TABS = [
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "certs", label: "Certs" },
+  { id: "words", label: "Kind words" },
   { id: "hi", label: "Say hi" },
 ];
 
 const EMAIL = "ahmedjawadtahmid@gmail.com";
-const TITLE = "Jawad Tahmid";
+const LINKEDIN = "https://www.linkedin.com/in/ahmed-jawad-tahmid";
+const TITLE = "Jawad's portfolio";
 const FONTS =
   "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Inter:wght@400;500;600&display=swap";
 
@@ -218,47 +220,67 @@ export const Sky = () => {
     "--sun": sky.colors.sun,
     "--cloud": sky.colors.cloud,
     "--dx": windLook.dx,
-    "--gust": windLook.gustOpacity,
     "--tilt": `${windLook.tilt}deg`,
   };
 
   return (
-    <div className={motion ? "sky" : "sky is-still"} style={style} onPointerDown={sound.unlock}>
-      {/* The weather itself: fixed behind the whole page. */}
-      <div className="sky-backdrop" aria-hidden="true">
-        {sky.isNight && (
-          <div className="sky-layer">
-            {STARS.map((s, i) => (
-              <span key={i} className="sky-star" style={{ left: s.left, top: s.top, width: s.size, height: s.size }} />
-            ))}
-          </div>
-        )}
+    <div className={motion ? "sky" : "sky is-still"} data-wind={wind} style={style} onPointerDown={sound.unlock}>
+      {/* The weather, fixed to the window. Stars sit furthest back; the sun (in the strip below)
+          is painted over them; clouds, wind and rain or snow pass in front of the sun; and the
+          page content is on top of everything. */}
+      <div className="sky-backdrop is-far" aria-hidden="true">
+        {sky.isNight &&
+          STARS.map((s, i) => (
+            <span key={i} className="sky-star" style={{ left: s.left, top: s.top, width: s.size, height: s.size }} />
+          ))}
+      </div>
 
-        {gusts.length > 0 && (
-          <div className="sky-layer">
-            {gusts.map((g, i) => (
-              <span
-                key={`${wind}-${i}`}
-                className="sky-gust"
-                style={{ top: g.top, width: g.width, animationDuration: g.duration, animationDelay: g.delay }}
-              />
-            ))}
-          </div>
-        )}
-
-        {drops.length > 0 && (
-          <div className="sky-layer">
-            {drops.map((d, i) => (
-              <span
-                key={`${weather}-${wind}-${i}`}
-                className={weather === "snow" ? "sky-drop is-snow" : "sky-drop"}
-                style={{ left: d.left, animationDuration: d.duration, animationDelay: d.delay, "--rest": d.rest }}
+      <div className="sky-backdrop is-near" aria-hidden="true">
+        {weather !== "clear" &&
+          CLOUDS.map((c, i) => {
+            const seconds = windLook.cloudSeconds * c.speed;
+            return (
+              <div
+                key={i}
+                className="sky-cloud"
+                style={{
+                  left: c.left,
+                  top: c.top,
+                  width: c.width,
+                  height: c.height,
+                  animationDuration: wind === "calm" ? c.duration : `${seconds.toFixed(1)}s`,
+                  animationDelay: wind === "calm" ? "0s" : `${(-c.offset * seconds).toFixed(1)}s`,
+                }}
               >
-                <i style={{ width: d.width, height: d.height, animationDuration: d.sway }} />
-              </span>
-            ))}
-          </div>
-        )}
+                <span /><span /><span />
+              </div>
+            );
+          })}
+
+        {gusts.map((g, i) => (
+          <span
+            key={`${wind}-${i}`}
+            className="sky-gust"
+            style={{
+              top: g.top,
+              width: g.width,
+              height: g.height,
+              "--gust": g.opacity,
+              animationDuration: g.duration,
+              animationDelay: g.delay,
+            }}
+          />
+        ))}
+
+        {drops.map((d, i) => (
+          <span
+            key={`${weather}-${wind}-${i}`}
+            className={weather === "snow" ? "sky-drop is-snow" : "sky-drop"}
+            style={{ left: d.left, animationDuration: d.duration, animationDelay: d.delay, "--rest": d.rest }}
+          >
+            <i style={{ width: d.width, height: d.height, opacity: d.opacity, animationDuration: d.sway }} />
+          </span>
+        ))}
       </div>
 
       <div className="sky-wrap">
@@ -291,29 +313,8 @@ export const Sky = () => {
           </div>
         </header>
 
-        <div className="sky-strip" data-wind={wind}>
+        <div className="sky-strip">
           <div className="sky-body" aria-hidden="true" style={{ left: sky.bodyLeft, top: sky.bodyTop }} />
-
-          {weather !== "clear" && (
-            <div className="sky-layer" aria-hidden="true">
-              {CLOUDS.map((c, i) => (
-                <div
-                  key={i}
-                  className="sky-cloud"
-                  style={{
-                    left: c.left,
-                    top: c.top,
-                    width: c.width,
-                    height: c.height,
-                    animationDuration: wind === "calm" ? c.duration : `${windLook.cloudSeconds}s`,
-                    animationDelay: wind === "calm" ? "0s" : `${(-c.offset * windLook.cloudSeconds).toFixed(1)}s`,
-                  }}
-                >
-                  <span /><span /><span />
-                </div>
-              ))}
-            </div>
-          )}
 
           {sky.isNight && wishes > 0 && <span key={wishes} className="sky-shooting" aria-hidden="true" />}
 
@@ -582,6 +583,48 @@ export const Sky = () => {
             </div>
           )}
 
+          {tab === "words" && (
+            <div className="sky-panel">
+              <div className="sky-quotes">
+                <figure className="sky-quote" onMouseEnter={sound.hover}>
+                  <blockquote>
+                    <p>
+                      I had the privilege of working with Ahmed, who interned with me for more than 4 months during
+                      the summer of 2026. He worked on a DevSecOps project involving AI. He demonstrated dedication
+                      and responsibility. He was also responsive to tasks and communication […] Without reservation,
+                      I recommend him for relevant roles.
+                    </p>
+                  </blockquote>
+                  <figcaption>
+                    <strong>Mahmoud Alfadel</strong>
+                    <span>Assistant Professor, Department of Computer Science, University of Calgary</span>
+                    <span>Mentor · November 2026</span>
+                  </figcaption>
+                </figure>
+
+                <figure className="sky-quote" onMouseEnter={sound.hover}>
+                  <blockquote>
+                    <p>
+                      Jawad had exactly the expertise and experience as a programmer that I wanted. […] He proved to
+                      be very good at analysing and adapting the pre-existing code to the purposes we needed for the
+                      project. […] He completed the work I required in a timely manner without much oversight. […] I
+                      would certainly work with Jawad again.
+                    </p>
+                  </blockquote>
+                  <figcaption>
+                    <strong>Gillman Payette</strong>
+                    <span>Assistant Professor, Department of Philosophy</span>
+                    <span>Managed Jawad directly · October 2024</span>
+                  </figcaption>
+                </figure>
+              </div>
+              <p className="sky-small">
+                Excerpts from recommendations on my LinkedIn profile.{" "}
+                <a href={LINKEDIN} target="_blank" rel="noreferrer">Read them in full there.</a>
+              </p>
+            </div>
+          )}
+
           {tab === "hi" && (
             <div className="sky-panel">
               <p className="sky-hi-line">Got a job, a project, or moral support to offer? I accept all three.</p>
@@ -594,7 +637,7 @@ export const Sky = () => {
                   <div className="sky-icon is-logo" aria-hidden="true"><img src="/sky/github.png" alt="" /></div>
                   <strong>GitHub</strong>
                 </a>
-                <a className="sky-contact" href="https://www.linkedin.com/in/ahmed-jawad-tahmid" target="_blank" rel="noreferrer" onMouseEnter={sound.hover}>
+                <a className="sky-contact" href={LINKEDIN} target="_blank" rel="noreferrer" onMouseEnter={sound.hover}>
                   <div className="sky-icon is-logo" aria-hidden="true"><img src="/sky/linkedin.png" alt="" /></div>
                   <strong>LinkedIn</strong>
                 </a>

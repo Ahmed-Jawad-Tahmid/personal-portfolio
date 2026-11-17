@@ -32,11 +32,16 @@
 .sky :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 
 /* Stars, rain, snow and wind sit behind the whole page and stay put while it scrolls. */
-.sky-backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.sky-backdrop { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.sky-backdrop.is-far { z-index: 0; }
+.sky-backdrop.is-near { z-index: 1; }
+
+/* Page content sits above the weather. The strip is the exception: it has no layer of its own,
+   so the sun inside it can sit behind the clouds while the wish button stays on top. */
+.sky-wrap > * { position: relative; z-index: 2; }
+.sky-wrap > .sky-strip { z-index: auto; }
 
 .sky-wrap {
-  position: relative;
-  z-index: 1;
   max-width: 1120px;
   margin: 0 auto;
   padding: 28px 6% 56px;
@@ -78,7 +83,6 @@
   border-bottom: 4px solid var(--ink);
   transition: border-color 0.6s ease;
 }
-.sky-layer { position: absolute; inset: 0; pointer-events: none; }
 .sky-star { position: absolute; border-radius: 50%; background: #f4f1de; }
 .sky-body {
   position: absolute;
@@ -86,6 +90,7 @@
   height: 104px;
   margin: -52px 0 0 -52px;
   border-radius: 50%;
+  z-index: 0;
   background: var(--sun);
   transition: left 0.5s ease, top 0.5s ease, background-color 0.6s ease;
 }
@@ -96,8 +101,8 @@
 .sky-cloud span:nth-child(2) { left: 16%; bottom: 22%; width: 40%; height: 70%; border-radius: 50%; }
 .sky-cloud span:nth-child(3) { left: 44%; bottom: 26%; width: 34%; height: 56%; border-radius: 50%; }
 
-/* With wind, clouds stop bobbing and travel across the strip instead. */
-.sky-strip:not([data-wind="calm"]) .sky-cloud { animation: sky-travel 40s linear infinite; }
+/* With wind, clouds stop bobbing and travel across the window instead. */
+.sky:not([data-wind="calm"]) .sky-cloud { animation: sky-travel 40s linear infinite; }
 
 /* A drop falls the height of the window (carried sideways by --dx); the <i> inside is what you see. */
 .sky-drop { position: absolute; top: -30px; animation: sky-fall 1s linear infinite; }
@@ -106,23 +111,23 @@
 
 .sky-gust {
   position: absolute;
-  left: -220px;
+  left: -340px;
   height: 3px;
   border-radius: 999px;
-  background: var(--ink);
+  background: linear-gradient(to right, transparent, var(--ink) 35%, var(--ink) 65%, transparent);
   opacity: 0;
   animation: sky-gust 5s linear infinite;
 }
 
 @keyframes sky-drift { from { transform: translateX(-14px); } to { transform: translateX(14px); } }
-@keyframes sky-travel { from { left: -240px; } to { left: 100%; } }
+@keyframes sky-travel { from { left: -280px; } to { left: 100%; } }
 @keyframes sky-fall {
   from { transform: translate(calc(var(--dx) * -0.5), 0); }
   to { transform: translate(calc(var(--dx) * 0.5), calc(100vh + 60px)); }
 }
 @keyframes sky-sway { from { transform: translateX(-9px); } to { transform: translateX(9px); } }
 @keyframes sky-gust {
-  0% { left: -220px; opacity: 0; }
+  0% { left: -340px; opacity: 0; }
   15% { opacity: var(--gust, 0.3); }
   85% { opacity: var(--gust, 0.3); }
   100% { left: 100%; opacity: 0; }
@@ -132,6 +137,7 @@
   position: absolute;
   left: 0;
   bottom: 14px;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -150,6 +156,7 @@
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(to left, #f4f1de, transparent);
+  z-index: 2;
   opacity: 0;
   transform: rotate(-24deg);
   animation: sky-shoot 0.9s ease-out;
@@ -341,6 +348,41 @@
 .sky-cert h2 { margin: 0; font-size: 21px; font-weight: 600; }
 .sky-cert p { margin: 0; font-size: 16px; }
 
+/* Kind words */
+.sky-quotes { display: flex; flex-wrap: wrap; gap: 26px; padding: 6px 2px; margin-bottom: 20px; }
+.sky-quote {
+  flex: 1 1 320px;
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  background: var(--bg);
+  transition: transform 0.2s ease, background-color 0.6s ease;
+}
+.sky-quote:nth-child(1) { transform: rotate(-0.8deg); }
+.sky-quote:nth-child(2) { transform: rotate(0.7deg); }
+.sky-quote:hover { transform: rotate(0deg) translateY(-4px); }
+.sky-quote blockquote { margin: 0; }
+.sky-quote blockquote::before {
+  content: "\201C";
+  display: block;
+  height: 44px;
+  font-family: var(--display);
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+  -webkit-text-stroke: 2px var(--ink);
+}
+.sky-quote blockquote p { margin: 0; }
+.sky-quote figcaption { margin-top: auto; display: flex; flex-direction: column; gap: 2px; font-size: 15px; }
+.sky-quote figcaption strong { font-size: 18px; font-weight: 600; }
+.sky-small a { font-weight: 600; text-decoration: underline; }
+
 /* Say hi */
 .sky-hi-line { margin: 0; max-width: 760px; font-family: var(--display); font-size: clamp(25px, 6.5vw, 34px); font-weight: 800; line-height: 1.15; }
 .sky-contacts { display: flex; flex-wrap: wrap; gap: 18px; margin: 22px 0 0; }
@@ -388,9 +430,7 @@
 
 @media (max-width: 600px) {
   .sky-cloud { scale: 0.6; transform-origin: left top; }
-  .sky-strip[data-wind="calm"] .sky-cloud:nth-child(2) { left: 38% !important; }
-  .sky-strip[data-wind="calm"] .sky-cloud:nth-child(3) { left: 70% !important; }
-  .sky-cloud:nth-child(3) { top: 34% !important; }
+  .sky-cloud:nth-child(even) { display: none; }
   .sky-strip { height: 200px; }
 }
 
