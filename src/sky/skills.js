@@ -54,7 +54,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: "Cloud",
-    skills: [{ name: "AWS", logo: cdn("amazonwebservices/amazonwebservices-plain-wordmark.svg") }],
+    skills: [{ name: "AWS", logo: "/logos/aws.png" }],
   },
   {
     label: "Machine Learning",

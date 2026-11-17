@@ -31,7 +31,12 @@
 .sky button { font: inherit; color: inherit; cursor: pointer; }
 .sky :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 
+/* Stars, rain, snow and wind sit behind the whole page and stay put while it scrolls. */
+.sky-backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+
 .sky-wrap {
+  position: relative;
+  z-index: 1;
   max-width: 1120px;
   margin: 0 auto;
   padding: 28px 6% 56px;
@@ -94,7 +99,7 @@
 /* With wind, clouds stop bobbing and travel across the strip instead. */
 .sky-strip:not([data-wind="calm"]) .sky-cloud { animation: sky-travel 40s linear infinite; }
 
-/* A drop falls (and is carried sideways by --dx); the <i> inside is what you see. */
+/* A drop falls the height of the window (carried sideways by --dx); the <i> inside is what you see. */
 .sky-drop { position: absolute; top: -30px; animation: sky-fall 1s linear infinite; }
 .sky-drop i { display: block; border-radius: 999px; background: var(--ink); transform: rotate(var(--tilt)); }
 .sky-drop.is-snow i { background: #ffffff; animation: sky-sway 2s ease-in-out infinite alternate; }
@@ -113,13 +118,13 @@
 @keyframes sky-travel { from { left: -240px; } to { left: 100%; } }
 @keyframes sky-fall {
   from { transform: translate(calc(var(--dx) * -0.5), 0); }
-  to { transform: translate(calc(var(--dx) * 0.5), 290px); }
+  to { transform: translate(calc(var(--dx) * 0.5), calc(100vh + 60px)); }
 }
 @keyframes sky-sway { from { transform: translateX(-9px); } to { transform: translateX(9px); } }
 @keyframes sky-gust {
   0% { left: -220px; opacity: 0; }
-  15% { opacity: 0.4; }
-  85% { opacity: 0.4; }
+  15% { opacity: var(--gust, 0.3); }
+  85% { opacity: var(--gust, 0.3); }
   100% { left: 100%; opacity: 0; }
 }
 

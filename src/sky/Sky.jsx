@@ -174,12 +174,50 @@ export const Sky = () => {
     "--on-accent": sky.colors.onAccent,
     "--sun": sky.colors.sun,
     "--cloud": sky.colors.cloud,
-    "--dx": `${windLook.dx}px`,
+    "--dx": windLook.dx,
+    "--gust": windLook.gustOpacity,
     "--tilt": `${windLook.tilt}deg`,
   };
 
   return (
     <div className={motion ? "sky" : "sky is-still"} style={style} onPointerDown={sound.unlock}>
+      {/* The weather itself: fixed behind the whole page. */}
+      <div className="sky-backdrop" aria-hidden="true">
+        {sky.isNight && (
+          <div className="sky-layer">
+            {STARS.map((s, i) => (
+              <span key={i} className="sky-star" style={{ left: s.left, top: s.top, width: s.size, height: s.size }} />
+            ))}
+          </div>
+        )}
+
+        {gusts.length > 0 && (
+          <div className="sky-layer">
+            {gusts.map((g, i) => (
+              <span
+                key={`${wind}-${i}`}
+                className="sky-gust"
+                style={{ top: g.top, width: g.width, animationDuration: g.duration, animationDelay: g.delay }}
+              />
+            ))}
+          </div>
+        )}
+
+        {drops.length > 0 && (
+          <div className="sky-layer">
+            {drops.map((d, i) => (
+              <span
+                key={`${weather}-${wind}-${i}`}
+                className={weather === "snow" ? "sky-drop is-snow" : "sky-drop"}
+                style={{ left: d.left, animationDuration: d.duration, animationDelay: d.delay, "--rest": d.rest }}
+              >
+                <i style={{ width: d.width, height: d.height, animationDuration: d.sway }} />
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="sky-wrap">
         <header className="sky-top">
           <span>ahmedjt.com</span>
@@ -211,14 +249,6 @@ export const Sky = () => {
         </header>
 
         <div className="sky-strip" data-wind={wind}>
-          {sky.isNight && (
-            <div className="sky-layer" aria-hidden="true">
-              {STARS.map((s, i) => (
-                <span key={i} className="sky-star" style={{ left: s.left, top: s.top, width: s.size, height: s.size }} />
-              ))}
-            </div>
-          )}
-
           <div className="sky-body" aria-hidden="true" style={{ left: sky.bodyLeft, top: sky.bodyTop }} />
 
           {weather !== "clear" && (
@@ -238,32 +268,6 @@ export const Sky = () => {
                 >
                   <span /><span /><span />
                 </div>
-              ))}
-            </div>
-          )}
-
-          {drops.length > 0 && (
-            <div className="sky-layer" aria-hidden="true">
-              {drops.map((d, i) => (
-                <span
-                  key={`${weather}-${wind}-${i}`}
-                  className={weather === "snow" ? "sky-drop is-snow" : "sky-drop"}
-                  style={{ left: d.left, animationDuration: d.duration, animationDelay: d.delay, "--rest": d.rest }}
-                >
-                  <i style={{ width: d.width, height: d.height, animationDuration: d.sway }} />
-                </span>
-              ))}
-            </div>
-          )}
-
-          {gusts.length > 0 && (
-            <div className="sky-layer" aria-hidden="true">
-              {gusts.map((g, i) => (
-                <span
-                  key={`${wind}-${i}`}
-                  className="sky-gust"
-                  style={{ top: g.top, width: g.width, animationDuration: g.duration, animationDelay: g.delay }}
-                />
               ))}
             </div>
           )}
