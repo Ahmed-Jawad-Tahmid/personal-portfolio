@@ -17,7 +17,7 @@ const TABS = [
 ];
 
 const EMAIL = "ahmedjawadtahmid@gmail.com";
-const LINKEDIN = "https://www.linkedin.com/in/ahmed-jawad-tahmid";
+const LINKEDIN = "https://www.linkedin.com/in/ahmedjt";
 const TITLE = "Jawad's portfolio";
 const FONTS =
   "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Inter:wght@400;500;600&display=swap";
@@ -589,7 +589,7 @@ export const Sky = () => {
                 <figure className="sky-quote" onMouseEnter={sound.hover}>
                   <blockquote>
                     <p>
-                      I had the privilege of working with Ahmed, who interned with me for more than 4 months during
+                      I had the privilege of working with [Jawad], who interned with me for more than 4 months during
                       the summer of 2026. He worked on a DevSecOps project involving AI. He demonstrated dedication
                       and responsibility. He was also responsive to tasks and communication […] Without reservation,
                       I recommend him for relevant roles.
