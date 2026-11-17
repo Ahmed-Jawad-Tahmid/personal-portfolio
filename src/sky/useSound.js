@@ -25,6 +25,28 @@ export function useSound() {
     } catch { /* no audio available */ }
   }, []);
 
+  // A tone that glides from one pitch to another (slide whistles, trombones, bonks).
+  const sweep = useCallback((from, to, dur = 0.3, vol = 0.05, delay = 0, type = "sine") => {
+    const ac = ctxRef.current;
+    if (!ac || !enabledRef.current) return;
+    try {
+      const at = ac.currentTime + delay;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(from, at);
+      osc.frequency.exponentialRampToValueAtTime(to, at + dur);
+      gain.gain.setValueAtTime(0.0001, at);
+      gain.gain.exponentialRampToValueAtTime(vol, at + 0.02);
+      gain.gain.setValueAtTime(vol, at + dur * 0.7);
+      gain.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(at);
+      osc.stop(at + dur + 0.03);
+    } catch { /* ignore */ }
+  }, []);
+
   const note = useCallback((freq, dur = 0.1, vol = 0.05, delay = 0, type = "sine", force = false) => {
     const ac = ctxRef.current;
     if (!ac || (!enabledRef.current && !force)) return;
@@ -71,5 +93,5 @@ export function useSound() {
     });
   }, [unlock, note]);
 
-  return { enabled, toggle, unlock, note, hover, hoverTone, click };
+  return { enabled, toggle, unlock, note, sweep, hover, hoverTone, click };
 }

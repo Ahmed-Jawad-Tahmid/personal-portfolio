@@ -50,6 +50,52 @@ const wishLabel = (n) => {
   return "You again";
 };
 
+// Sound effects for people who keep wishing. Each takes the sound hook and plays one gag.
+const WISH_GAGS = {
+  trombone: (s) => {
+    s.sweep(233, 220, 0.34, 0.06, 0, "sawtooth");
+    s.sweep(220, 208, 0.34, 0.06, 0.38, "sawtooth");
+    s.sweep(208, 196, 0.34, 0.06, 0.76, "sawtooth");
+    s.sweep(196, 140, 0.95, 0.06, 1.14, "sawtooth");
+  },
+  bonk: (s) => s.sweep(190, 60, 0.2, 0.14, 0, "triangle"),
+  buzzer: (s) => {
+    s.sweep(120, 118, 0.2, 0.045, 0, "square");
+    s.sweep(120, 118, 0.32, 0.045, 0.26, "square");
+  },
+  whistleDown: (s) => s.sweep(1500, 220, 0.7, 0.06),
+  boing: (s) => {
+    s.sweep(180, 720, 0.14, 0.07, 0, "triangle");
+    s.sweep(720, 260, 0.12, 0.06, 0.14, "triangle");
+    s.sweep(260, 560, 0.12, 0.05, 0.26, "triangle");
+    s.sweep(560, 220, 0.3, 0.04, 0.38, "triangle");
+  },
+  quack: (s) => {
+    s.sweep(560, 280, 0.12, 0.05, 0, "sawtooth");
+    s.sweep(520, 240, 0.16, 0.05, 0.18, "sawtooth");
+  },
+  tada: (s) => {
+    s.note(523, 0.12, 0.06, 0, "triangle");
+    s.note(659, 0.12, 0.06, 0.12, "triangle");
+    s.note(784, 0.12, 0.06, 0.24, "triangle");
+    s.note(1047, 0.45, 0.07, 0.36, "triangle");
+  },
+};
+const GAG_CYCLE = ["bonk", "quack", "boing", "whistleDown", "buzzer", "trombone"];
+
+// Which gag goes with wish number n (1 to 4 get the normal chime instead).
+const wishGag = (n) => {
+  if (n < 5) return null;
+  if (n === 5) return "trombone";
+  if (n <= 7) return "bonk";
+  if (n <= 9) return "buzzer";
+  if (n <= 12) return "quack";
+  if (n <= 16) return "whistleDown";
+  if (n <= 20) return "boing";
+  if (n === 21) return "tada";
+  return GAG_CYCLE[n % GAG_CYCLE.length];
+};
+
 // Movement starts on unless the visitor's device asks for reduced motion; the Motion button overrides it.
 const initialMotion = () => {
   try {
@@ -157,13 +203,19 @@ export const Sky = () => {
   };
 
   const makeWish = () => {
-    // The chime climbs a little with every wish, then wraps around.
-    const lift = 2 ** ((wishes % 8) / 12);
+    const next = wishes + 1;
+    const gag = wishGag(next);
     sound.unlock();
-    sound.note(784 * lift, 0.16, 0.06);
-    sound.note(988 * lift, 0.16, 0.06, 0.1);
-    sound.note(1319 * lift, 0.3, 0.06, 0.2);
-    setWishes((n) => n + 1);
+    if (gag) {
+      WISH_GAGS[gag](sound);
+    } else {
+      // The first few wishes get a chime that climbs a little each time.
+      const lift = 2 ** ((next - 1) / 12);
+      sound.note(784 * lift, 0.16, 0.06);
+      sound.note(988 * lift, 0.16, 0.06, 0.1);
+      sound.note(1319 * lift, 0.3, 0.06, 0.2);
+    }
+    setWishes(next);
   };
 
   const style = {
