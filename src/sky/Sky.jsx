@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, FileText, MapPin, MessageSquare, PawPrint, RefreshCw } from "lucide-react";
+import { ArrowUpRight, FileText, MapPin, MessageSquare, PawPrint } from "lucide-react";
 import { useCalgary } from "./useCalgary";
 import { useSound } from "./useSound";
-import { buildSky, makeDrops, CLOUDS, STARS, WEATHERS } from "./skyLogic";
+import { buildSky, makeDrops, makeGusts, CLOUDS, STARS, WEATHERS, WINDS, WIND_LOOK } from "./skyLogic";
+import { SKILL_GROUPS } from "./skills";
 import "./sky.css";
 
 const TABS = [
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
   { id: "certs", label: "Certs" },
   { id: "hi", label: "Say hi" },
 ];
@@ -21,6 +23,43 @@ const FONTS =
 // Notes for the sun slider: the higher the sun, the higher the pitch.
 const SCALE = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24];
 const WEATHER_NOTES = { clear: 523, cloudy: 440, rain: 349, snow: 659 };
+const WIND_NOTES = { calm: 392, breeze: 494, gale: 587 };
+const WIND_WORDS = { calm: "", breeze: " · Breezy", gale: " · Windy" };
+
+// What the sky says back, depending on how many wishes this visitor has made.
+const wishReply = (n) => {
+  if (n === 0) return "";
+  if (n === 1) return "Wish no. 1 sent. Delivery times vary.";
+  if (n === 2) return "Wish no. 2 sent. No refunds.";
+  if (n === 3) return "Three wishes. That's the genie limit.";
+  if (n === 4) return "Four? Bold.";
+  if (n === 5) return "Ask god atp bro.";
+  if (n <= 7) return "The star left you on read.";
+  if (n <= 9) return "Bro, this is a sky, not customer support.";
+  if (n <= 12) return "The stars have unionized. They want fewer wishes.";
+  if (n <= 16) return "Wishing harder doesn't make it load faster.";
+  if (n <= 20) return "Okay, go touch grass. It's right below the sky.";
+  if (n <= 29) return "Fine. Wish granted: you now have one (1) portfolio to look at.";
+  return `Achievement unlocked: ${n} wishes, 0 granted.`;
+};
+
+const wishLabel = (n) => {
+  if (n < 5) return "Make a wish";
+  if (n < 10) return "Make another wish";
+  if (n < 21) return "Still wishing?";
+  return "You again";
+};
+
+// Movement starts on unless the visitor's device asks for reduced motion; the Motion button overrides it.
+const initialMotion = () => {
+  try {
+    const saved = localStorage.getItem("sky-motion");
+    if (saved) return saved === "on";
+    return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  } catch {
+    return true;
+  }
+};
 
 export const Sky = () => {
   const live = useCalgary();
@@ -29,18 +68,23 @@ export const Sky = () => {
   // null means "follow the real thing"; a value means the visitor has taken over.
   const [timeOverride, setTimeOverride] = useState(null);
   const [weatherOverride, setWeatherOverride] = useState(null);
+  const [windOverride, setWindOverride] = useState(null);
+  const [motion, setMotion] = useState(initialMotion);
   const [tab, setTab] = useState("about");
   const [wishes, setWishes] = useState(0);
   const [showResume, setShowResume] = useState(false);
 
   const t = timeOverride ?? live.t;
   const weather = weatherOverride ?? live.weather;
+  const wind = windOverride ?? live.wind;
+  const windLook = WIND_LOOK[wind];
   const sky = useMemo(
     () => buildSky({ t, sunrise: live.sunrise, sunset: live.sunset, weather }),
     [t, live.sunrise, live.sunset, weather]
   );
-  const drops = useMemo(() => makeDrops(weather), [weather]);
-  const isLive = timeOverride === null && weatherOverride === null;
+  const drops = useMemo(() => makeDrops(weather, wind), [weather, wind]);
+  const gusts = useMemo(() => makeGusts(wind), [wind]);
+  const isLive = timeOverride === null && weatherOverride === null && windOverride === null;
 
   // Keep the area behind the page (overscroll, mobile browser bars) the same colour as the sky.
   useEffect(() => {
@@ -86,6 +130,20 @@ export const Sky = () => {
     sound.click(392);
     setTimeOverride(null);
     setWeatherOverride(null);
+    setWindOverride(null);
+  };
+
+  const pickWind = (id) => {
+    sound.click(WIND_NOTES[id]);
+    setWindOverride(id);
+  };
+
+  const toggleMotion = () => {
+    sound.click(motion ? 294 : 440);
+    setMotion((on) => {
+      try { localStorage.setItem("sky-motion", on ? "off" : "on"); } catch { /* private mode */ }
+      return !on;
+    });
   };
 
   const pickWeather = (id) => {
@@ -99,10 +157,12 @@ export const Sky = () => {
   };
 
   const makeWish = () => {
+    // The chime climbs a little with every wish, then wraps around.
+    const lift = 2 ** ((wishes % 8) / 12);
     sound.unlock();
-    sound.note(784, 0.16, 0.06);
-    sound.note(988, 0.16, 0.06, 0.1);
-    sound.note(1319, 0.3, 0.06, 0.2);
+    sound.note(784 * lift, 0.16, 0.06);
+    sound.note(988 * lift, 0.16, 0.06, 0.1);
+    sound.note(1319 * lift, 0.3, 0.06, 0.2);
     setWishes((n) => n + 1);
   };
 
@@ -114,10 +174,12 @@ export const Sky = () => {
     "--on-accent": sky.colors.onAccent,
     "--sun": sky.colors.sun,
     "--cloud": sky.colors.cloud,
+    "--dx": `${windLook.dx}px`,
+    "--tilt": `${windLook.tilt}deg`,
   };
 
   return (
-    <div className="sky" style={style} onPointerDown={sound.unlock}>
+    <div className={motion ? "sky" : "sky is-still"} style={style} onPointerDown={sound.unlock}>
       <div className="sky-wrap">
         <header className="sky-top">
           <span>ahmedjt.com</span>
@@ -125,7 +187,17 @@ export const Sky = () => {
             <span>
               Calgary, AB · {sky.clock} · {weatherLabel}
               {showTemperature ? `, ${live.temperature}°C` : ""}
+              {WIND_WORDS[wind]}
             </span>
+            <button
+              type="button"
+              className="sky-pill"
+              aria-pressed={motion}
+              onClick={toggleMotion}
+              onMouseEnter={sound.hover}
+            >
+              {motion ? "Motion on" : "Motion off"}
+            </button>
             <button
               type="button"
               className="sky-pill"
@@ -138,7 +210,7 @@ export const Sky = () => {
           </div>
         </header>
 
-        <div className="sky-strip">
+        <div className="sky-strip" data-wind={wind}>
           {sky.isNight && (
             <div className="sky-layer" aria-hidden="true">
               {STARS.map((s, i) => (
@@ -155,7 +227,14 @@ export const Sky = () => {
                 <div
                   key={i}
                   className="sky-cloud"
-                  style={{ left: c.left, top: c.top, width: c.width, height: c.height, animationDuration: c.duration }}
+                  style={{
+                    left: c.left,
+                    top: c.top,
+                    width: c.width,
+                    height: c.height,
+                    animationDuration: wind === "calm" ? c.duration : `${windLook.cloudSeconds}s`,
+                    animationDelay: wind === "calm" ? "0s" : `${(-c.offset * windLook.cloudSeconds).toFixed(1)}s`,
+                  }}
                 >
                   <span /><span /><span />
                 </div>
@@ -167,27 +246,36 @@ export const Sky = () => {
             <div className="sky-layer" aria-hidden="true">
               {drops.map((d, i) => (
                 <span
-                  key={`${weather}-${i}`}
+                  key={`${weather}-${wind}-${i}`}
                   className={weather === "snow" ? "sky-drop is-snow" : "sky-drop"}
-                  style={{
-                    left: d.left,
-                    width: d.width,
-                    height: d.height,
-                    animationDuration: d.duration,
-                    animationDelay: d.delay,
-                    "--rest": d.rest,
-                  }}
+                  style={{ left: d.left, animationDuration: d.duration, animationDelay: d.delay, "--rest": d.rest }}
+                >
+                  <i style={{ width: d.width, height: d.height, animationDuration: d.sway }} />
+                </span>
+              ))}
+            </div>
+          )}
+
+          {gusts.length > 0 && (
+            <div className="sky-layer" aria-hidden="true">
+              {gusts.map((g, i) => (
+                <span
+                  key={`${wind}-${i}`}
+                  className="sky-gust"
+                  style={{ top: g.top, width: g.width, animationDuration: g.duration, animationDelay: g.delay }}
                 />
               ))}
             </div>
           )}
 
+          {sky.isNight && wishes > 0 && <span key={wishes} className="sky-shooting" aria-hidden="true" />}
+
           {sky.isNight && (
             <div className="sky-wish">
               <button type="button" className="sky-pill" onClick={makeWish} onMouseEnter={sound.hover}>
-                Make a wish
+                {wishLabel(wishes)}
               </button>
-              <span aria-live="polite">{wishes > 0 ? `Wish no. ${wishes} sent. Delivery times vary.` : ""}</span>
+              <span aria-live="polite">{wishReply(wishes)}</span>
             </div>
           )}
         </div>
@@ -207,6 +295,24 @@ export const Sky = () => {
                 className="sky-pill sky-pill-fill"
                 aria-pressed={weather === w.id}
                 onClick={() => pickWeather(w.id)}
+                onMouseEnter={sound.hover}
+              >
+                {w.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="sky-controls" role="group" aria-label="Change the wind">
+          <span>And the wind?</span>
+          <div className="sky-controls-group">
+            {WINDS.map((w) => (
+              <button
+                key={w.id}
+                type="button"
+                className="sky-pill sky-pill-fill"
+                aria-pressed={wind === w.id}
+                onClick={() => pickWind(w.id)}
                 onMouseEnter={sound.hover}
               >
                 {w.label}
@@ -365,6 +471,30 @@ export const Sky = () => {
             </div>
           )}
 
+          {tab === "skills" && (
+            <div className="sky-panel sky-skills">
+              {SKILL_GROUPS.map((group, g) => (
+                <div key={group.label} className="sky-skill-group">
+                  <h2>{group.label}</h2>
+                  <ul>
+                    {group.skills.map((skill, i) => (
+                      <li
+                        key={skill.name}
+                        className="sky-skill"
+                        onMouseEnter={() => sound.hoverTone(392 * 2 ** (SCALE[(g * 2 + i) % SCALE.length] / 12))}
+                      >
+                        <span className="sky-skill-logo">
+                          <img src={skill.logo} alt="" loading="lazy" />
+                        </span>
+                        {skill.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+
           {tab === "certs" && (
             <div className="sky-panel sky-certs">
               <div className="sky-cert" onMouseEnter={sound.hover}>
@@ -392,7 +522,7 @@ export const Sky = () => {
               </div>
 
               <div className="sky-cert" onMouseEnter={sound.hover}>
-                <div className="sky-icon is-round" aria-hidden="true"><RefreshCw size={30} /></div>
+                <img src="https://learn.microsoft.com/training/achievements/generic-trophy.svg" alt="Microsoft Learn trophy" width="88" height="88" />
                 <div className="sky-cert-text">
                   <h2>DevOps Foundations: The Core Principles and Practices</h2>
                   <p>Microsoft Learn · 2025</p>
@@ -411,33 +541,23 @@ export const Sky = () => {
               <div className="sky-contacts">
                 <a className="sky-contact" href={`mailto:${EMAIL}`} onMouseEnter={sound.hover}>
                   <div className="sky-icon is-logo" aria-hidden="true"><img src="/sky/gmail.png" alt="" /></div>
-                  <div>
-                    <strong>Gmail</strong>
-                    <span>{EMAIL}</span>
-                  </div>
+                  <strong>Gmail</strong>
                 </a>
                 <a className="sky-contact" href="https://github.com/Ahmed-Jawad-Tahmid" target="_blank" rel="noreferrer" onMouseEnter={sound.hover}>
                   <div className="sky-icon is-logo" aria-hidden="true"><img src="/sky/github.png" alt="" /></div>
-                  <div>
-                    <strong>GitHub</strong>
-                    <span>Where the code lives</span>
-                  </div>
+                  <strong>GitHub</strong>
                 </a>
                 <a className="sky-contact" href="https://www.linkedin.com/in/ahmed-jawad-tahmid" target="_blank" rel="noreferrer" onMouseEnter={sound.hover}>
                   <div className="sky-icon is-logo" aria-hidden="true"><img src="/sky/linkedin.png" alt="" /></div>
-                  <div>
-                    <strong>LinkedIn</strong>
-                    <span>The professional version</span>
-                  </div>
+                  <strong>LinkedIn</strong>
                 </a>
               </div>
-              <p className="sky-small">I usually reply within a day. Calgary time, so check the sky above.</p>
             </div>
           )}
         </section>
 
         <footer>
-          <p className="sky-small">The sky on this page follows the real time and weather in Calgary.</p>
+          <p className="sky-small">The sky on this page follows the real time, weather and wind in Calgary.</p>
         </footer>
       </div>
 

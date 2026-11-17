@@ -134,6 +134,27 @@
   font-size: 16px;
 }
 .sky-wish .sky-pill { background: var(--bg); }
+.sky-wish span:not(:empty) { padding: 4px 12px; border-radius: 999px; background: var(--bg); }
+
+/* One shooting star per wish. */
+.sky-shooting {
+  position: absolute;
+  top: 8%;
+  left: 62%;
+  width: 90px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to left, #f4f1de, transparent);
+  opacity: 0;
+  transform: rotate(-24deg);
+  animation: sky-shoot 0.9s ease-out;
+  pointer-events: none;
+}
+@keyframes sky-shoot {
+  0% { opacity: 0; transform: translate(120px, -50px) rotate(-24deg); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-260px, 110px) rotate(-24deg); }
+}
 
 /* Controls */
 .sky-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-weight: 600; font-size: 16px; }
@@ -317,24 +338,22 @@
 
 /* Say hi */
 .sky-hi-line { margin: 0; max-width: 760px; font-family: var(--display); font-size: clamp(25px, 6.5vw, 34px); font-weight: 800; line-height: 1.15; }
-.sky-contacts { display: flex; flex-wrap: wrap; gap: 18px; margin: 22px 0; }
+.sky-contacts { display: flex; flex-wrap: wrap; gap: 18px; margin: 22px 0 0; }
 .sky-contact {
-  flex: 1 1 220px;
+  flex: 0 1 220px;
   min-width: 0;
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 18px;
+  padding: 14px 22px 14px 14px;
   border: 3px solid var(--ink);
   border-radius: 18px;
   background: var(--bg);
   text-decoration: none;
   transition: transform 0.15s ease, background-color 0.6s ease;
 }
-.sky-contact:first-child { flex: 2 1 300px; }
 .sky-contact:hover { transform: translateY(-3px); }
-.sky-contact strong { display: block; font-size: 20px; font-weight: 600; }
-.sky-contact span { display: block; font-size: 14px; overflow-wrap: anywhere; }
+.sky-contact strong { font-size: 20px; font-weight: 600; }
 .sky-small { margin: 0; font-size: 16px; }
 
 /* Résumé dialog */
@@ -377,5 +396,5 @@
 .sky.is-still .sky-panel,
 .sky.is-still .sky-dialog { animation: none !important; }
 .sky.is-still .sky-drop { top: var(--rest, 40%); }
-.sky.is-still .sky-gust { display: none; }
+.sky.is-still .sky-gust, .sky.is-still .sky-shooting { display: none; }
 .sky.is-still, .sky.is-still .sky-body { transition: none; }
