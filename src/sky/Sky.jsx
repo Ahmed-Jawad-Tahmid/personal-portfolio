@@ -407,13 +407,11 @@ export const Sky = () => {
                 <span className="sky-chip is-accent">Open to new-grad roles</span>
               </div>
               <p>
-                I'm finishing my BSc in Computer Science at the University of Calgary. Along the way I spent two
-                summers doing research, picked up two AWS certifications, and built a handful of apps with friends and
-                on my own.
+                CS student at UCalgary, graduating in December 2026. I've spent two summers doing research, picked up some AWS certs, 
+                spent my free time building things, meeting good people and discovering places with great food.
               </p>
               <p>
-                I enjoy both ends of the work: getting backend logic right and making the front end pleasant to use.
-                Mostly I like starting from nothing and ending with something that works.
+                I enjoy making things that work, look good, and make someone's day a little easier.
               </p>
               <div>
                 <button
@@ -589,7 +587,7 @@ export const Sky = () => {
                 <figure className="sky-quote" onMouseEnter={sound.hover}>
                   <blockquote>
                     <p>
-                      I had the privilege of working with [Jawad], who interned with me for more than 4 months during
+                      I had the privilege of working with Jawad, who interned with me for more than 4 months during
                       the summer of 2026. He worked on a DevSecOps project involving AI. He demonstrated dedication
                       and responsibility. He was also responsive to tasks and communication […] Without reservation,
                       I recommend him for relevant roles.
